@@ -9,7 +9,7 @@
                 <RadzenLabel Text="Year" Component="Year" style="width: 100%" />
             </RadzenColumn>
             <RadzenColumn SizeMD="9">
-                <RadzenNumeric style="display: block; width: 100%" @bind-Value="@billRecord.Year" Name="Year" />
+                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@billRecord.YearStr" Name="Year" />
                 <RadzenRequiredValidator Component="Year" Text="Year is required" />
             </RadzenColumn>
         </RadzenRow>
@@ -61,11 +61,12 @@
 
     protected string errorMessage { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         billRecord = new BillRecord();
         errorMessage = "";
     }
+
     protected bool errorVisible;
     protected BillRecord billRecord;
 
@@ -74,6 +75,7 @@
         errorVisible = false;
         try
         {
+            billRecord.Year = int.Parse(billRecord.YearStr);
             await dBService.CreateRecord(billRecord);
             DialogService.Close(billRecord);
         }
@@ -84,7 +86,7 @@
         }
     }
 
-    protected async Task CancelButtonClick(MouseEventArgs args)
+    protected void CancelButtonClick(MouseEventArgs args)
     {
         DialogService.Close(null);
     }

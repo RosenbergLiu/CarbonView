@@ -30,10 +30,17 @@ namespace GreenITBlazor.Services
             await Database.CreateTableAsync<EmissionRecord>();
         }
 
-        public async Task<List<BillRecord>> GetRecords()
+        public async Task<List<BillRecord>> GetRecords(bool isDescending)
         {
             await Init();
-            return await Database.Table<BillRecord>().OrderByDescending(r => r.Year).ToListAsync();
+            if (isDescending)
+            {
+                return await Database.Table<BillRecord>().OrderByDescending(r => r.Year).ToListAsync();
+            }
+            else
+            {
+                return await Database.Table<BillRecord>().OrderBy(r => r.Year).ToListAsync();
+            }
         }
 
         public async Task CreateRecord(BillRecord billRecord)

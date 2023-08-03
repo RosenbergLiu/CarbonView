@@ -11,5 +11,8 @@ namespace GreenITBlazor.Models
     {
         [JsonProperty("recordid")]
         public string RecordId { get; set; }
+
+        [JsonProperty("fields")]
+        public CityOfCaseyFieldRes Fields { get; set; }
     }
 }

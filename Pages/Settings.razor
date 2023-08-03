@@ -1,5 +1,7 @@
 ﻿@page "/settings"
 
+<PageTitle>User Profile</PageTitle>
+<RadzenText Text="User Profile" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
 <RadzenColumn SizeMD=12>
     <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Success" Visible="@stateVisible">@stateMessage</RadzenAlert>
     <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible">@errorMessage</RadzenAlert>
@@ -18,6 +20,14 @@
             </RadzenColumn>
             <RadzenColumn SizeMD="9">
                 <RadzenTextBox style="display: block; width: 100%" @bind-Value="@userProfile.Postcode" Name="Postcode" />
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow style="margin-bottom: 1rem">
+            <RadzenColumn SizeMD="3">
+                <RadzenLabel Text="House members" Component="Members" style="width: 100%" />
+            </RadzenColumn>
+            <RadzenColumn SizeMD="9">
+                <RadzenNumeric style="display: block; width: 100%" @bind-Value="@userProfile.Members" Name="House members" />
             </RadzenColumn>
         </RadzenRow>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End" Gap="0.5rem">

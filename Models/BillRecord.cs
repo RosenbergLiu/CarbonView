@@ -6,7 +6,15 @@ namespace GreenITBlazor.Models
     {
         [PrimaryKey]
         public int Year { get; set; }
+
+        public string YearStr { get; set; }
+
         public double ElectricityUsage { get; set; }
+
         public double GasUsage { get; set; }
+
+        public double? ElectricityUsagePc { get; set; }
+
+        public double? GasUsagePc { get; set; }
     }
 }

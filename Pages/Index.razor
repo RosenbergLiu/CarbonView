@@ -1,23 +1,46 @@
 ﻿@page "/"
 
-<h1>Hello, world!</h1>
+<PageTitle>Visualization</PageTitle>
+<RadzenText Text="Visualization" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
 
 <RadzenChart>
-    <RadzenLineSeries Smooth="false" Data="@revenue2019" CategoryProperty="Date" Title="2019" LineType="LineType.Dashed" ValueProperty="Revenue">
+    <RadzenColumnSeries Data="@bills" CategoryProperty="YearStr" ValueProperty="ElectricityUsagePc" Title="My data" />
+    <RadzenLineSeries Smooth="false" Data="@electricityRes" CategoryProperty="Year" Title="Community data" LineType="LineType.Dashed" ValueProperty="AveKwhPcPa">
         <RadzenMarkers MarkerType="MarkerType.Square" />
-        <RadzenSeriesDataLabels Visible="@showDataLabels" />
     </RadzenLineSeries>
-    <RadzenLineSeries Smooth="false" Data="@revenue2020" CategoryProperty="Date" Title="2020" ValueProperty="Revenue">
-        <RadzenMarkers MarkerType="MarkerType.Circle" />
-        <RadzenSeriesDataLabels Visible="@showDataLabels" />
-    </RadzenLineSeries>
-    <RadzenCategoryAxis Padding="20" Formatter="@FormatAsMonth" />
-    <RadzenValueAxis Formatter="@FormatAsUSD">
-        <RadzenGridLines Visible="true" />
-        <RadzenAxisTitle Text="Revenue in USD" />
-    </RadzenValueAxis>
+    <RadzenLegend Position="LegendPosition.Bottom" />
 </RadzenChart>
 
 @code{
+    [Inject]
+    public ApiService apiService { get; set; }
 
+    [Inject]
+    public BillsDBService billsDBService { get; set; }
+
+    List<CityOfCaseyFieldRes> electricityRes;
+    List<CityOfCaseyFieldRes> gasRes;
+    List<BillRecord> bills;
+
+    int members;
+
+    protected override async Task OnInitializedAsync()
+    {
+        members = Preferences.Default.Get("members", 1);
+        bills = await billsDBService.GetRecords(false);
+        bills.ForEach(record => record.ElectricityUsagePc = record.ElectricityUsage / members);
+        bills.ForEach(record => record.GasUsagePc = record.GasUsage / members);
+
+        List<string> yearsAdded = bills.Select(e => e.YearStr).Distinct().ToList();
+
+        List<CityOfCaseyRecordRes> res = new List<CityOfCaseyRecordRes>();
+        string postcode = Preferences.Default.Get("postcode", "Undefined postcode");
+        if(postcode != "Undefined postcode")
+        {
+            res = await apiService.GetData(postcode);
+        }
+        var fields = res.Where(r => yearsAdded.Contains(r.Fields.Year)).Select(r => r.Fields).ToList();
+        electricityRes = fields.Where(f => f.Type == "Electricity").ToList();
+        gasRes = fields.Where(f => f.Type == "Gas").ToList();
+    }
 }
