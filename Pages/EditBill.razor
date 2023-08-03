@@ -8,7 +8,7 @@
         
         <RadzenRow style="margin-bottom: 1rem">
             <RadzenColumn SizeMD="3">
-                <RadzenLabel Text="Name" Component="Name" style="width: 100%" />
+                <RadzenLabel Text="Electricity Usage" Component="ElectricityUsage" style="width: 100%" />
             </RadzenColumn>
             <RadzenColumn SizeMD="9">
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@billRecord.ElectricityUsage" Name="Electricity Usage" />
@@ -16,7 +16,7 @@
         </RadzenRow>
         <RadzenRow style="margin-bottom: 1rem">
             <RadzenColumn SizeMD="3">
-                <RadzenLabel Text="Price" Component="Price" style="width: 100%" />
+                <RadzenLabel Text="Gas Usage" Component="GasUsage" style="width: 100%" />
             </RadzenColumn>
             <RadzenColumn SizeMD="9">
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@billRecord.GasUsage" Name="Gas Usage" />

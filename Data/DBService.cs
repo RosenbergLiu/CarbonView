@@ -27,7 +27,7 @@ namespace GreenITBlazor.Data
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
             await Database.CreateTableAsync<BillRecord>();
             await Database.CreateTableAsync<UserProfile>();
-            await Database.CreateTableAsync<Emmissions>();
+            await Database.CreateTableAsync<EmissionRecord>();
         }
 
         public async Task<List<BillRecord>> GetRecords()
@@ -95,6 +95,10 @@ namespace GreenITBlazor.Data
         {
             string result = "OK";
             int currentYear = DateTime.Now.Year;
+
+            if(billRecord.Year < 2000){
+                result = "Year must later than 2000";
+            }
 
             if (billRecord.Year > currentYear)
             {

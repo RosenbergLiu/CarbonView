@@ -2,7 +2,7 @@
 
 namespace GreenITBlazor.Models
 {
-    public class EmmisionRecord
+    public class EmissionRecord
     {
         [PrimaryKey]
         public int Year { get; set; }
