@@ -2,6 +2,22 @@
 
 <h1>Hello, world!</h1>
 
-Welcome to your new app.
+<RadzenChart>
+    <RadzenLineSeries Smooth="false" Data="@revenue2019" CategoryProperty="Date" Title="2019" LineType="LineType.Dashed" ValueProperty="Revenue">
+        <RadzenMarkers MarkerType="MarkerType.Square" />
+        <RadzenSeriesDataLabels Visible="@showDataLabels" />
+    </RadzenLineSeries>
+    <RadzenLineSeries Smooth="false" Data="@revenue2020" CategoryProperty="Date" Title="2020" ValueProperty="Revenue">
+        <RadzenMarkers MarkerType="MarkerType.Circle" />
+        <RadzenSeriesDataLabels Visible="@showDataLabels" />
+    </RadzenLineSeries>
+    <RadzenCategoryAxis Padding="20" Formatter="@FormatAsMonth" />
+    <RadzenValueAxis Formatter="@FormatAsUSD">
+        <RadzenGridLines Visible="true" />
+        <RadzenAxisTitle Text="Revenue in USD" />
+    </RadzenValueAxis>
+</RadzenChart>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@code{
+
+}

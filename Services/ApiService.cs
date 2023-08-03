@@ -1,13 +1,5 @@
 ﻿using GreenITBlazor.Models;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace GreenITBlazor.Services
 {
@@ -49,6 +41,30 @@ namespace GreenITBlazor.Services
             }
 
             return false;
+        }
+
+        public async Task<List<CityOfCaseyRecordRes>> GetData(string postcode)
+        {
+            res = new CityOfCaseyRes();
+            string uri = Constants.CityOfCaseyUrl + postcode;
+
+            try
+            {
+                HttpResponseMessage response = await _client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    res = JsonConvert.DeserializeObject<CityOfCaseyRes>(content);
+
+                    return res.Records;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+
+            return null;
         }
     }
 }
