@@ -3,12 +3,14 @@
 <PageTitle>Visualization</PageTitle>
 <RadzenText Text="Visualization" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
 
+<h4>Electricity usage per person (kWh)</h4>
 <RadzenChart>
     <RadzenColumnSeries Data="@bills" CategoryProperty="YearStr" ValueProperty="ElectricityUsagePc" Title="My data" />
     <RadzenLineSeries Smooth="false" Data="@electricityRes" CategoryProperty="Year" Title="Community data" LineType="LineType.Dashed" ValueProperty="AveKwhPcPa">
         <RadzenMarkers MarkerType="MarkerType.Square" />
     </RadzenLineSeries>
     <RadzenLegend Position="LegendPosition.Bottom" />
+    <RadzenValueAxis Min="0" />
 </RadzenChart>
 
 @code{
