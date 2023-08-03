@@ -1,0 +1,114 @@
+﻿
+@page "/bills"
+<PageTitle>Bills</PageTitle>
+<RadzenStack>
+    <RadzenRow AlignItems="AlignItems.Center">
+        <RadzenColumn Size="12" SizeMD="6">
+            <RadzenText Text="Bills" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
+        </RadzenColumn>
+        <RadzenColumn Size="12" SizeMD="6">
+            <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End" Gap="0.5rem">
+                <RadzenButton Icon="add_circle_outline" Text="Add" Click="@AddButtonClick" Variant="Variant.Flat" />
+            </RadzenStack>
+        </RadzenColumn>
+    </RadzenRow>
+    <RadzenRow>
+        <RadzenColumn SizeMD=12>
+            <RadzenDataGrid @ref="grid0" ColumnWidth="200px" AllowFiltering="false" FilterMode="FilterMode.Advanced" AllowPaging="false" AllowSorting="true" ShowPagingSummary="true"
+                            Data="@records" Count=count LoadData=@Grid0LoadData TItem="BillRecord" RowSelect="@EditRow" AllowGrouping="false" AllowCompositeDataCells="false" AllowColumnResize="false" AllowColumnReorder="false" AllowColumnPicking="false" AllowAlternatingRows="false">
+                <Columns>
+                    <RadzenDataGridColumn TItem="BillRecord" Property="Year" Title="Bill Records">
+                    </RadzenDataGridColumn>
+                    <RadzenDataGridColumn TItem="BillRecord" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+                        <Template Context="BillRecord">
+
+                            <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="delete" Size="ButtonSize.Medium"
+                                          Shade="Shade.Lighter" Variant="Variant.Flat"
+                                          Click=@(args => GridDeleteButtonClick(args, BillRecord)) @onclick:stopPropagation="true" />
+                        </Template>
+                    </RadzenDataGridColumn>
+                </Columns>
+
+            </RadzenDataGrid>
+
+        </RadzenColumn>
+    </RadzenRow>
+</RadzenStack>
+
+@code {
+    [Inject]
+    protected IJSRuntime JSRuntime { get; set; }
+
+    [Inject]
+    protected NavigationManager NavigationManager { get; set; }
+
+    [Inject]
+    protected DialogService DialogService { get; set; }
+
+    [Inject]
+    protected TooltipService TooltipService { get; set; }
+
+    [Inject]
+    protected ContextMenuService ContextMenuService { get; set; }
+
+    [Inject]
+    protected NotificationService NotificationService { get; set; }
+
+    [Inject]
+    public DBService dBService { get; set; }
+
+    protected IEnumerable<BillRecord> records;
+
+    protected RadzenDataGrid<BillRecord> grid0;
+    protected int count;
+
+    protected async Task Grid0LoadData(LoadDataArgs args)
+    {
+        try
+        {
+            records = await dBService.GetRecords();
+            count = records.Count();
+        }
+        catch (System.Exception ex)
+        {
+            NotificationService.Notify(new NotificationMessage() { Severity = NotificationSeverity.Error, Summary = $"Error", Detail = $"Unable to load bills" });
+        }
+    }
+
+    protected async Task AddButtonClick(MouseEventArgs args)
+    {
+        await DialogService.OpenAsync<AddBill>("Add record", null);
+        await grid0.Reload();
+    }
+
+    protected async Task EditRow(BillRecord args)
+    {
+        await DialogService.OpenAsync<EditBill>("Edit record", new Dictionary<string, object> { { "Year", args.Year } });
+        await grid0.Reload();
+    }
+
+    protected async Task GridDeleteButtonClick(MouseEventArgs args, BillRecord billRecord)
+    {
+        try
+        {
+            if (await DialogService.Confirm("Are you sure you want to delete this record?") == true)
+            {
+                string deleteResult = await dBService.DeletetRecord(billRecord);
+
+                if (deleteResult == "OK")
+                {
+                    await grid0.Reload();
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            NotificationService.Notify(new NotificationMessage
+                {
+                    Severity = NotificationSeverity.Error,
+                    Summary = $"Error",
+                    Detail = ex.Message
+                });
+        }
+    }
+}
