@@ -59,23 +59,19 @@
     [Inject]
     public ApiService apiService { get; set; }
 
-    protected string stateMessage;
-    protected string errorMessage;
+    string stateMessage = "";
+    string errorMessage = "";
 
-    protected bool stateVisible;
-    protected bool errorVisible;
+    bool stateVisible = false;
+    bool errorVisible = false;
 
-    protected bool busy;
+    bool busy = false;
+    NetworkAccess accessType = Connectivity.Current.NetworkAccess;
 
     protected UserProfile userProfile;
 
     protected override void OnInitialized()
     {
-        busy = false;
-        stateMessage = "";
-        stateVisible = false;
-        errorMessage = "";
-        errorVisible = false;
         userProfile = new UserProfile
             {
                 UserName = Preferences.Default.Get("username", ""),
@@ -91,17 +87,25 @@
         errorVisible = false;
         try
         {
-            if (await apiService.ValidatePostcode(userProfile.Postcode))
+            if (accessType == NetworkAccess.Internet)
             {
-                Preferences.Default.Set("username", userProfile.UserName);
-                Preferences.Default.Set("postcode", userProfile.Postcode);
-                Preferences.Default.Set("members", userProfile.Members);
-                stateMessage = "Saved";
-                stateVisible = true;
+                if (await apiService.ValidatePostcode(userProfile.Postcode))
+                {
+                    Preferences.Default.Set("username", userProfile.UserName);
+                    Preferences.Default.Set("postcode", userProfile.Postcode);
+                    Preferences.Default.Set("members", userProfile.Members);
+                    stateMessage = "Saved";
+                    stateVisible = true;
+                }
+                else
+                {
+                    errorMessage = "Invalid or not supported postcode";
+                    errorVisible = true;
+                }
             }
             else
             {
-                errorMessage = "Invalid or not supported postcode";
+                errorMessage = "No network connection";
                 errorVisible = true;
             }
 

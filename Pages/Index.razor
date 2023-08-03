@@ -2,9 +2,13 @@
 
 <PageTitle>Visualization</PageTitle>
 <RadzenText Text="Visualization" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
+<RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
 
-<h4>Electricity usage per person (kWh)</h4>
-<RadzenChart>
+<div class="rz-m-12">
+    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Visible="@busy" />
+</div>
+<RadzenChart Visible="@electricityChartVisible">
+    <h4>Electricity usage per person (kWh)</h4>
     <RadzenColumnSeries Data="@bills" CategoryProperty="YearStr" ValueProperty="ElectricityUsagePc" Title="My data" />
     <RadzenLineSeries Smooth="false" Data="@electricityRes" CategoryProperty="Year" Title="Community data" LineType="LineType.Dashed" ValueProperty="AveKwhPcPa">
         <RadzenMarkers MarkerType="MarkerType.Square" />
@@ -13,6 +17,7 @@
     <RadzenValueAxis Min="0" />
 </RadzenChart>
 
+
 @code{
     [Inject]
     public ApiService apiService { get; set; }
@@ -20,15 +25,23 @@
     [Inject]
     public BillsDBService billsDBService { get; set; }
 
-    List<CityOfCaseyFieldRes> electricityRes;
+    List<CityOfCaseyFieldRes> electricityRes = new List<CityOfCaseyFieldRes>();
     List<CityOfCaseyFieldRes> gasRes;
-    List<BillRecord> bills;
+    List<BillRecord> bills = new List<BillRecord>();
+    string errorMessage = "";
+    bool errorVisible = false;
+    bool electricityChartVisible = false;
+    bool busy = false;
+
+    NetworkAccess accessType = Connectivity.Current.NetworkAccess;
 
     int members;
 
     protected override async Task OnInitializedAsync()
     {
+        busy = true;
         members = Preferences.Default.Get("members", 1);
+        bills = new List<BillRecord>();
         bills = await billsDBService.GetRecords(false);
         bills.ForEach(record => record.ElectricityUsagePc = record.ElectricityUsage / members);
         bills.ForEach(record => record.GasUsagePc = record.GasUsage / members);
@@ -39,10 +52,38 @@
         string postcode = Preferences.Default.Get("postcode", "Undefined postcode");
         if(postcode != "Undefined postcode")
         {
-            res = await apiService.GetData(postcode);
+            if (accessType == NetworkAccess.Internet)
+            {
+                res = await apiService.GetData(postcode);
+            }
+            else
+            {
+                errorMessage = "No network connection. Community data is unavailable";
+                errorVisible = true;
+            }
+        }
+        else
+        {
+            errorMessage = "Postcode not set";
+            errorVisible = true;
         }
         var fields = res.Where(r => yearsAdded.Contains(r.Fields.Year)).Select(r => r.Fields).ToList();
         electricityRes = fields.Where(f => f.Type == "Electricity").ToList();
         gasRes = fields.Where(f => f.Type == "Gas").ToList();
+        if(bills.Count > 0)
+        {
+            electricityChartVisible = true;
+        }
+        else
+        {
+            errorMessage = "No data";
+            errorVisible = true;
+        }
+        busy = false;
+    }
+
+    async void Refresh()
+    {
+        await OnInitializedAsync();
     }
 }
