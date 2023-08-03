@@ -2,34 +2,53 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace GreenITBlazor.Services
 {
     public class ApiService
     {
-        HttpClient client;
+        HttpClient _client;
+
+        public CityOfCaseyRes res;
+
         public ApiService() {
-            client = new HttpClient();
+            _client = new HttpClient();
         }
 
         public async Task<bool> ValidatePostcode(string postcode)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"https://data.casey.vic.gov.au/api/records/1.0/search/?dataset=summary-residential-community-data&rows=1&facet=postcode&refine.postcode={postcode}");
-            var response = await client.SendAsync(request);
-            response.EnsureSuccessStatusCode();
-            CityOfCaseyRes res = JsonConvert.DeserializeObject<CityOfCaseyRes>(await response.Content.ReadAsStringAsync());
-            if(res.Records.Count == 0)
+            res = new CityOfCaseyRes();
+            string uri = Constants.CityOfCaseyUrl + postcode;
+
+            try
             {
-                return false;
+                HttpResponseMessage response = await _client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    res = JsonConvert.DeserializeObject<CityOfCaseyRes>(content);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return true;
+                throw new Exception(ex.Message);
             }
+
+            if(res != null)
+            {
+                if(res.Records.Count > 0)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }

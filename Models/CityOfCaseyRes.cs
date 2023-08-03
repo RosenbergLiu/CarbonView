@@ -12,6 +12,4 @@ namespace GreenITBlazor.Models
         [JsonProperty("records")]
         public List<CityOfCaseyRecordRes> Records { get; set; }
     }
-
-
 }
