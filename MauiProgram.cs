@@ -28,7 +28,7 @@ public static class MauiProgram
 		builder.Logging.AddDebug();
 #endif
 
-        builder.Services.AddSingleton<DBService>();
+        builder.Services.AddSingleton<BillsDBService>();
 
         return builder.Build();
 	}

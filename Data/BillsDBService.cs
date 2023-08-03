@@ -12,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace GreenITBlazor.Data
 {
-    public class DBService
+    public class BillsDBService
     {
         SQLiteAsyncConnection Database;
 
-        public DBService()
+        public BillsDBService()
         { }
 
         async Task Init()
