@@ -3,7 +3,7 @@
 <PageTitle>Edit Bill</PageTitle>
 
 <RadzenColumn SizeMD=12>
-    <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible">Cannot save tblProduct</RadzenAlert>
+    <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible">@errorMessage</RadzenAlert>
     <RadzenTemplateForm TItem="BillRecord" Data="@billRecord" Visible="@(billRecord != null)" Submit="@FormSubmit">
         
         <RadzenRow style="margin-bottom: 1rem">
@@ -48,14 +48,18 @@
 
     [Inject]
     protected NotificationService NotificationService { get; set; }
+
     [Inject]
     public BillsDBService dBService { get; set; }
+
+    protected string errorMessage { get; set; }
 
     [Parameter]
     public int year { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        errorMessage = "";
         billRecord = await dBService.GetRecord(year);
     }
 
@@ -71,6 +75,7 @@
         }
         catch (Exception ex)
         {
+            errorMessage = ex.Message;
             errorVisible = true;
         }
     }
