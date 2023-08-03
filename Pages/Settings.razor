@@ -1,5 +1,107 @@
-﻿<h3>Settings</h3>
+﻿@page "/settings"
+
+<RadzenColumn SizeMD=12>
+    <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Success" Visible="@stateVisible">@stateMessage</RadzenAlert>
+    <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible">@errorMessage</RadzenAlert>
+    <RadzenTemplateForm TItem="UserProfile" Data="@userProfile" Visible="@(userProfile != null)" Submit="@FormSubmit">
+        <RadzenRow style="margin-bottom: 1rem">
+            <RadzenColumn SizeMD="3">
+                <RadzenLabel Text="User Name" Component="UserName" style="width: 100%" />
+            </RadzenColumn>
+            <RadzenColumn SizeMD="9">
+                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@userProfile.UserName" Name="User Name" />
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow style="margin-bottom: 1rem">
+            <RadzenColumn SizeMD="3">
+                <RadzenLabel Text="Postcode" Component="Postcode" style="width: 100%" />
+            </RadzenColumn>
+            <RadzenColumn SizeMD="9">
+                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@userProfile.Postcode" Name="Postcode" />
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End" Gap="0.5rem">
+            <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Icon="save" Text="Save" Variant="Variant.Flat" IsBusy="@busy" BusyText="Saving ..."/>
+        </RadzenStack>
+    </RadzenTemplateForm>
+</RadzenColumn>
+
 
 @code {
+    [Inject]
+    protected IJSRuntime JSRuntime { get; set; }
 
+    [Inject]
+    protected NavigationManager NavigationManager { get; set; }
+
+    [Inject]
+    protected DialogService DialogService { get; set; }
+
+    [Inject]
+    protected TooltipService TooltipService { get; set; }
+
+    [Inject]
+    protected ContextMenuService ContextMenuService { get; set; }
+
+    [Inject]
+    protected NotificationService NotificationService { get; set; }
+
+    [Inject]
+    public ApiService apiService { get; set; }
+
+    protected string stateMessage;
+    protected string errorMessage;
+
+    protected bool stateVisible;
+    protected bool errorVisible;
+
+    protected bool busy;
+
+    protected UserProfile userProfile;
+
+    protected override void OnInitialized()
+    {
+        busy = false;
+        stateMessage = "";
+        stateVisible = false;
+        errorMessage = "";
+        errorVisible = false;
+        userProfile = new UserProfile
+            {
+                UserName = Preferences.Default.Get("username", ""),
+                Postcode = Preferences.Default.Get("postcode", ""),
+                Members = Preferences.Default.Get("members", 1)
+            };
+    }
+
+    protected async Task FormSubmit()
+    {
+        busy = true;
+        stateVisible = false;
+        errorVisible = false;
+        try
+        {
+            if (await apiService.ValidatePostcode(userProfile.Postcode))
+            {
+                Preferences.Default.Set("username", userProfile.UserName);
+                Preferences.Default.Set("postcode", userProfile.Postcode);
+                Preferences.Default.Set("members", userProfile.Members);
+                stateMessage = "Saved";
+                stateVisible = true;
+            }
+            else
+            {
+                errorMessage = "Invalid or not supported postcode";
+                errorVisible = true;
+            }
+
+            busy = false;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = ex.Message;
+            errorVisible = true;
+            busy = false;
+        }
+    }
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-using GreenITBlazor.Data;
+using GreenITBlazor.Services;
 using Radzen;
 
 namespace GreenITBlazor;
@@ -29,6 +29,7 @@ public static class MauiProgram
 #endif
 
         builder.Services.AddSingleton<BillsDBService>();
+        builder.Services.AddSingleton<ApiService>();
 
         return builder.Build();
 	}

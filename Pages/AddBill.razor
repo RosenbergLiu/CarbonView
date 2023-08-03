@@ -71,6 +71,7 @@
 
     protected async Task FormSubmit()
     {
+        errorVisible = false;
         try
         {
             await dBService.CreateRecord(billRecord);
