@@ -26,11 +26,10 @@ namespace GreenITBlazor.Services
 
             Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
             await Database.CreateTableAsync<BillRecord>();
-            await Database.CreateTableAsync<UserProfile>();
             await Database.CreateTableAsync<EmissionRecord>();
         }
 
-        public async Task<List<BillRecord>> GetRecords(bool isDescending)
+        public async Task<List<BillRecord>> GetBillRecordsAsync(bool isDescending)
         {
             await Init();
             if (isDescending)
@@ -43,7 +42,7 @@ namespace GreenITBlazor.Services
             }
         }
 
-        public async Task CreateRecord(BillRecord billRecord)
+        public async Task CreateBillRecordAsync(BillRecord billRecord)
         {
             await Init();
             string validator = Validator(billRecord);
@@ -60,7 +59,7 @@ namespace GreenITBlazor.Services
             }
         }
 
-        public async Task<string> DeletetRecord(BillRecord billRecord)
+        public async Task<string> DeletetBillRecordAsync(BillRecord billRecord)
         {
             try
             {
@@ -74,13 +73,13 @@ namespace GreenITBlazor.Services
             }
         }
 
-        public async Task<BillRecord> GetRecord(int year)
+        public async Task<BillRecord> GetBillRecordAsync(int year)
         {
             await Init();
             return await Database.Table<BillRecord>().Where(b => b.Year == year).FirstOrDefaultAsync();
         }
 
-        public async Task UpdateRecord(BillRecord billRecord)
+        public async Task UpdateBillRecordAsync(BillRecord billRecord)
         {
             await Init();
             string validator = Validator(billRecord);
