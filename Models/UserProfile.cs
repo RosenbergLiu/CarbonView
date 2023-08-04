@@ -11,6 +11,5 @@ namespace GreenITBlazor.Models
         public string UserName { get; set; }
         public string Postcode { get; set; }
         public int Members { get; set; }
-        public int Pin { get; set; }
     }
 }

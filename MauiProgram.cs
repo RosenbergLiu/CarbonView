@@ -24,6 +24,9 @@ public static class MauiProgram
 #endif
         builder.Services.AddSingleton<BillsDBService>();
         builder.Services.AddSingleton<ApiService>();
+
+        Preferences.Default.Set("loggedin", false);
+
         return builder.Build();
     }
 }

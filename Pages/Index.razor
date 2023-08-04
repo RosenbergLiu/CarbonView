@@ -1,5 +1,4 @@
 ﻿@page "/"
-@inject NavigationManager Navigation
 
 <PageTitle>Visualization</PageTitle>
 <RadzenText Text="Visualization" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
@@ -26,6 +25,9 @@
     [Inject]
     public BillsDBService billsDBService { get; set; }
 
+    [Inject]
+    public NavigationManager navigation { get; set; }
+
     List<CityOfCaseyFieldRes> electricityRes = new List<CityOfCaseyFieldRes>();
     List<CityOfCaseyFieldRes> gasRes;
     List<BillRecord> bills = new List<BillRecord>();
@@ -37,13 +39,12 @@
     NetworkAccess accessType = Connectivity.Current.NetworkAccess;
 
     int members;
-    bool loggedIn = Preferences.Default.Get("loggedin", false);
 
     protected override async Task OnInitializedAsync()
     {
-        if (!loggedIn)
+        if (!Preferences.Default.Get("loggedin", false))
         {
-            Navigation.NavigateTo("/bills");
+            navigation.NavigateTo("/login");
         }
         busy = true;
         members = Preferences.Default.Get("members", 1);

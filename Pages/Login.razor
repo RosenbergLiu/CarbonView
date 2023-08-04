@@ -1,5 +1,32 @@
-﻿<h3>Login</h3>
+﻿@page "/login"
 
+@if (firstLogin)
+{
+    <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center" Gap="1rem" Visible="@firstLogin">
+        <RadzenText Text="Set a PIN" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
+        <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
+        <RadzenRow style="margin-bottom: 1rem">
+            <RadzenNumeric style="display: block; width: 100%" @bind-Value="@pinInput" Name="Pin" ShowUpDown="false" />
+            <RadzenRequiredValidator Component="Pin" Text="Pin is required" />
+            <RadzenLengthValidator Component="Pin" Min="4" Max="4" Text="Pin should be 4 numbers" Popup=false Style="position: absolute" />
+        </RadzenRow>
+        <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Save" Variant="Variant.Flat" Click="SetPin" />
+    </RadzenStack>
+}
+else
+{
+
+    <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
+    <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center" Gap="1rem" Visible="@(!firstLogin)">
+        <RadzenText Text="Enter the PIN" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
+        <RadzenRow style="margin-bottom: 1rem">
+            <RadzenNumeric style="display: block; width: 100%" @bind-Value="@pinInput" Name="Pin" ShowUpDown="false" />
+            <RadzenRequiredValidator Component="Pin" Text="Pin is required" />
+            <RadzenLengthValidator Component="Pin" Min="4" Max="4" Text="Pin should be 4 numbers" Popup=false Style="position: absolute" />
+        </RadzenRow>
+        <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Login" Variant="Variant.Flat" Click="TryLogin" />
+    </RadzenStack>
+}
 
 @code {
     [Inject]
@@ -20,7 +47,54 @@
     [Inject]
     protected NotificationService NotificationService { get; set; }
 
+    [Inject]
+    public NavigationManager navigation { get; set; }
+
     bool firstLogin = Preferences.Default.Get("firstlogin", true);
+    bool loggedIn = Preferences.Default.Get("loggedIn", false);
+    string pinInput;
 
+    bool errorVisible = false;
+    string errorMessage = "";
 
+    protected override void OnInitialized()
+    {
+        if (loggedIn)
+        {
+            navigation.NavigateTo("/");
+        }
+    }
+
+    void SetPin()
+    {
+        Preferences.Default.Set("pin", HashPassword(pinInput));
+        Preferences.Default.Set("firstlogin", false);
+        Preferences.Default.Set("loggedin", true);
+        firstLogin = false;
+        loggedIn = true;
+        OnInitialized();
+    }
+
+    void TryLogin()
+    {
+        Preferences.Default.Set("loggedin", true);
+        navigation.NavigateTo("/");
+    }
+
+    public static string HashPassword(string password)
+    {
+        using (SHA256 sha256Hash = SHA256.Create())
+        {
+            // Convert the input string to a byte array and compute the hash.
+            byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+            // Convert byte array to a string
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                builder.Append(bytes[i].ToString("x2"));
+            }
+            return builder.ToString();
+        }
+    }
 }

@@ -7,7 +7,7 @@ namespace GreenITBlazor.Models
         [PrimaryKey]
         public int? Year { get; set; }
 
-        public string? YearStr { get; set; }
+        public string YearStr { get; set; }
 
         public double? ElectricityUsage { get; set; }
 
