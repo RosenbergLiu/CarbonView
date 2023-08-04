@@ -15,7 +15,7 @@
         </RadzenRow>
         <RadzenRow style="margin-bottom: 1rem">
             <RadzenColumn SizeMD="3">
-                <RadzenLabel Text="Electricity Usage" Component="ElectricityUsage" style="width: 100%" />
+                <RadzenLabel Text="Electricity Usage (kWh)" Component="ElectricityUsage" style="width: 100%" />
             </RadzenColumn>
             <RadzenColumn SizeMD="9">
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@billRecord.ElectricityUsage" Name="Electricity Usage" />
@@ -23,10 +23,18 @@
         </RadzenRow>
         <RadzenRow style="margin-bottom: 1rem">
             <RadzenColumn SizeMD="3">
-                <RadzenLabel Text="Gas Usage" Component="GasUsage" style="width: 100%" />
+                <RadzenLabel Text="Gas Usage (mj)" Component="GasUsage" style="width: 100%" />
             </RadzenColumn>
             <RadzenColumn SizeMD="9">
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@billRecord.GasUsage" Name="Gas Usage" />
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow style="margin-bottom: 1rem">
+            <RadzenColumn SizeMD="3">
+                <RadzenLabel Text="Carbon Emission (kg)" Component="CarbonEmission" style="width: 100%" />
+            </RadzenColumn>
+            <RadzenColumn SizeMD="9">
+                <RadzenNumeric style="display: block; width: 100%" @bind-Value="@billRecord.CarbonEmission" Name="Carbon Emission" />
             </RadzenColumn>
         </RadzenRow>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End" Gap="0.5rem">

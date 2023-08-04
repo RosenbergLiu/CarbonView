@@ -13,8 +13,13 @@ namespace GreenITBlazor.Models
 
         public double GasUsage { get; set; }
 
+        public double CarbonEmission { get; set; }
+
         public double? ElectricityUsagePc { get; set; }
 
         public double? GasUsagePc { get; set; }
+
+        public double? CarbonEmissionPc { get; set; }
+
     }
 }
