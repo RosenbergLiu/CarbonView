@@ -1,7 +1,7 @@
 ﻿@page "/"
 
-<PageTitle>Visualization</PageTitle>
-<RadzenText Text="Visualization" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
+<PageTitle>Compare</PageTitle>
+<RadzenText Text="Comapre" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
 <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
 
 <div class="rz-m-12">
@@ -10,7 +10,18 @@
 <RadzenChart Visible="@electricityChartVisible">
     <h4>Electricity usage per person (kWh)</h4>
     <RadzenColumnSeries Data="@bills" CategoryProperty="YearStr" ValueProperty="ElectricityUsagePc" Title="My data" />
-    <RadzenLineSeries Smooth="false" Data="@electricityRes" CategoryProperty="Year" Title="Community data" LineType="LineType.Dashed" ValueProperty="AveKwhPcPa">
+    <RadzenLineSeries Smooth="false" Data="@electricityRes" CategoryProperty="YearStr" Title="Community data" LineType="LineType.Dashed" ValueProperty="AveKwhPcPa">
+        <RadzenMarkers MarkerType="MarkerType.Square" />
+    </RadzenLineSeries>
+    <RadzenLegend Position="LegendPosition.Bottom" />
+    <RadzenValueAxis Min="0" />
+</RadzenChart>
+
+
+<RadzenChart Visible="@gasChartVisible">
+    <h4>Gas usage per person (MJ)</h4>
+    <RadzenColumnSeries Data="@bills" CategoryProperty="YearStr" ValueProperty="GasUsage" Title="My data" />
+    <RadzenLineSeries Smooth="false" Data="@gasRes" CategoryProperty="YearStr" Title="Community data" LineType="LineType.Dashed" ValueProperty="AveMjPcPa">
         <RadzenMarkers MarkerType="MarkerType.Square" />
     </RadzenLineSeries>
     <RadzenLegend Position="LegendPosition.Bottom" />
@@ -29,11 +40,12 @@
     public NavigationManager navigation { get; set; }
 
     List<CityOfCaseyFieldRes> electricityRes = new List<CityOfCaseyFieldRes>();
-    List<CityOfCaseyFieldRes> gasRes;
+    List<CityOfCaseyFieldRes> gasRes = new List<CityOfCaseyFieldRes>();
     List<BillRecord> bills = new List<BillRecord>();
     string errorMessage = "";
     bool errorVisible = false;
     bool electricityChartVisible = false;
+    bool gasChartVisible = false;
     bool busy = false;
 
     NetworkAccess accessType = Connectivity.Current.NetworkAccess;
@@ -53,8 +65,6 @@
         bills.ForEach(record => record.ElectricityUsagePc = record.ElectricityUsage / members);
         bills.ForEach(record => record.GasUsagePc = record.GasUsage / members);
 
-        List<string> yearsAdded = bills.Select(e => e.YearStr).Distinct().ToList();
-
         List<CityOfCaseyRecordRes> res = new List<CityOfCaseyRecordRes>();
         string postcode = Preferences.Default.Get("postcode", "Undefined postcode");
         if(postcode != "Undefined postcode")
@@ -71,15 +81,16 @@
         }
         else
         {
-            errorMessage = "Postcode not set";
+            errorMessage = "Postcode not set. Community data will not show";
             errorVisible = true;
         }
-        var fields = res.Where(r => yearsAdded.Contains(r.Fields.Year)).Select(r => r.Fields).ToList();
-        electricityRes = fields.Where(f => f.Type == "Electricity").ToList();
-        gasRes = fields.Where(f => f.Type == "Gas").ToList();
-        if(bills.Count > 0)
+        var fields = res.Select(r => r.Fields).ToList();
+        electricityRes = fields.Where(f => f.Type == "Electricity").OrderBy(f => f.Year).ToList();
+        gasRes = fields.Where(f => f.Type == "Gas").OrderBy(f => f.Year).ToList();
+        if (bills.Count > 0)
         {
             electricityChartVisible = true;
+            gasChartVisible = true;
         }
         else
         {

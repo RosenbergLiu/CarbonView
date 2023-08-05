@@ -4,7 +4,7 @@
 <RadzenText Text="User Profile" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
 <RadzenColumn SizeMD=12>
     <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Success" Visible="@stateVisible">@stateMessage</RadzenAlert>
-    <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible">@errorMessage</RadzenAlert>
+    <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
     <RadzenTemplateForm TItem="UserProfile" Data="@userProfile" Visible="@(userProfile != null)" Submit="@FormSubmit">
         <RadzenRow style="margin-bottom: 1rem">
             <RadzenColumn SizeMD="3">
@@ -38,6 +38,8 @@
 </RadzenColumn>
 
 
+<RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="logout" Text="Reset PIN" Variant="Variant.Flat" Click="ResetPIN"/>
+
 @code {
     [Inject]
     protected IJSRuntime JSRuntime { get; set; }
@@ -60,6 +62,9 @@
     [Inject]
     public ApiService apiService { get; set; }
 
+    [Inject]
+    public NavigationManager navigation { get; set; }
+
     string stateMessage = "";
     string errorMessage = "";
 
@@ -73,6 +78,10 @@
 
     protected override void OnInitialized()
     {
+        if (!Preferences.Default.Get("loggedin", false))
+        {
+            navigation.NavigateTo("/login");
+        }
         userProfile = new UserProfile
             {
                 UserName = Preferences.Default.Get("username", ""),
@@ -118,5 +127,12 @@
             errorVisible = true;
             busy = false;
         }
+    }
+
+    void ResetPIN()
+    {
+        Preferences.Default.Set("firstlogin", true);
+        Preferences.Default.Set("loggedin", false);
+        navigation.NavigateTo("/login");
     }
 }

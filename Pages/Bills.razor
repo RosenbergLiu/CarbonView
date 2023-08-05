@@ -55,10 +55,21 @@
     [Inject]
     public BillsDBService dBService { get; set; }
 
+    [Inject]
+    public NavigationManager navigation { get; set; }
+
     protected IEnumerable<BillRecord> records;
 
     protected RadzenDataGrid<BillRecord> grid0;
     protected int count;
+
+    protected override void OnInitialized()
+    {
+        if (!Preferences.Default.Get("loggedin", false))
+        {
+            navigation.NavigateTo("/login");
+        }
+    }
 
     protected async Task Grid0LoadData(LoadDataArgs args)
     {

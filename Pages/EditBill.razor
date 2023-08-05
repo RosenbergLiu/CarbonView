@@ -3,7 +3,7 @@
 <PageTitle>Edit Bill</PageTitle>
 
 <RadzenColumn SizeMD=12>
-    <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible">@errorMessage</RadzenAlert>
+    <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
     <RadzenTemplateForm TItem="BillRecord" Data="@billRecord" Visible="@(billRecord != null)" Submit="@FormSubmit">
         <RadzenRow style="margin-bottom: 1rem">
             <RadzenColumn SizeMD="3">
@@ -16,7 +16,7 @@
         </RadzenRow>
         <RadzenRow style="margin-bottom: 1rem">
             <RadzenColumn SizeMD="3">
-                <RadzenLabel Text="Gas Usage (mj)" Component="GasUsage" style="width: 100%" />
+                <RadzenLabel Text="Gas Usage (MJ)" Component="GasUsage" style="width: 100%" />
             </RadzenColumn>
             <RadzenColumn SizeMD="9">
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@billRecord.GasUsage" Name="GasUsage" Placeholder="0.0" ShowUpDown="false" />

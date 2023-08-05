@@ -15,10 +15,9 @@
 }
 else
 {
-
-    <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
     <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center" Gap="1rem" Visible="@(!firstLogin)">
         <RadzenText Text="Enter the PIN" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
+        <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
         <RadzenRow style="margin-bottom: 1rem">
             <RadzenNumeric style="display: block; width: 100%" @bind-Value="@pinInput" Name="Pin" ShowUpDown="false" />
             <RadzenRequiredValidator Component="Pin" Text="Pin is required" />
@@ -27,6 +26,7 @@ else
         <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Login" Variant="Variant.Flat" Click="TryLogin" />
     </RadzenStack>
 }
+
 
 @code {
     [Inject]
@@ -51,8 +51,8 @@ else
     public NavigationManager navigation { get; set; }
 
     bool firstLogin = Preferences.Default.Get("firstlogin", true);
-    bool loggedIn = Preferences.Default.Get("loggedIn", false);
-    string pinInput;
+    bool loggedIn = Preferences.Default.Get("loggedin", false);
+    string pinInput = "";
 
     bool errorVisible = false;
     string errorMessage = "";
@@ -67,18 +67,45 @@ else
 
     void SetPin()
     {
-        Preferences.Default.Set("pin", HashPassword(pinInput));
-        Preferences.Default.Set("firstlogin", false);
-        Preferences.Default.Set("loggedin", true);
-        firstLogin = false;
-        loggedIn = true;
-        OnInitialized();
+        errorVisible = false;
+        if(string.IsNullOrEmpty(pinInput))
+        {
+            errorMessage = "Please set a pin";
+            errorVisible = true;
+        }
+        else
+        {
+            Preferences.Default.Set("pin", HashPassword(pinInput));
+            Preferences.Default.Set("firstlogin", false);
+            Preferences.Default.Set("loggedin", true);
+            firstLogin = false;
+            loggedIn = true;
+            OnInitialized();
+        }
     }
 
     void TryLogin()
     {
-        Preferences.Default.Set("loggedin", true);
-        navigation.NavigateTo("/");
+        errorVisible = false;
+        if (string.IsNullOrEmpty(pinInput))
+        {
+            errorMessage = "Please set a PIN";
+            errorVisible = true;
+        }
+        else
+        {
+            if (HashPassword(pinInput) == Preferences.Default.Get("pin", ""))
+            {
+                Preferences.Default.Set("loggedin", true);
+                loggedIn = true;
+                OnInitialized();
+            }
+            else
+            {
+                errorMessage = "Wrong PIN";
+                errorVisible = true;
+            }
+        }
     }
 
     public static string HashPassword(string password)
