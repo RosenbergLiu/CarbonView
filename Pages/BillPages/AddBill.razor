@@ -61,7 +61,10 @@
     [Inject]
     public BillsDBService dBService { get; set; }
 
-    protected string errorMessage { get; set; }
+    string errorMessage { get; set; }
+    bool errorVisible;
+
+    protected BillRecord billRecord;
 
     protected override void OnInitialized()
     {
@@ -69,8 +72,7 @@
         errorMessage = "";
     }
 
-    protected bool errorVisible;
-    protected BillRecord billRecord;
+
 
     protected async Task FormSubmit()
     {

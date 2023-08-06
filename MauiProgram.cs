@@ -23,6 +23,7 @@ public static class MauiProgram
         builder.Logging.AddDebug();
 #endif
         builder.Services.AddSingleton<BillsDBService>();
+        builder.Services.AddSingleton<ActivitiesDBService>();
         builder.Services.AddSingleton<ApiService>();
 
         Preferences.Default.Set("loggedin", false);
