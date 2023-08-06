@@ -7,7 +7,7 @@
 <div class="rz-m-12">
     <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Visible="@busy" />
 </div>
-<RadzenChart Visible="@electricityChartVisible">
+<RadzenChart Visible="@electricityChartVisible" >
     <h4>Electricity usage per person (kWh)</h4>
     <RadzenColumnSeries Data="@bills" CategoryProperty="YearStr" ValueProperty="ElectricityUsagePc" Title="My data" />
     <RadzenLineSeries Smooth="false" Data="@electricityRes" CategoryProperty="YearStr" Title="Community data" LineType="LineType.Dashed" ValueProperty="AveKwhPcPa">
@@ -16,10 +16,8 @@
     <RadzenLegend Position="LegendPosition.Bottom" />
     <RadzenValueAxis Min="0" />
 </RadzenChart>
-
-
-<RadzenChart Visible="@gasChartVisible">
-    <h4>Gas usage per person (MJ)</h4>
+<RadzenChart Visible="@gasChartVisible" >
+    <h4 style="margin-top: 2rem">Gas usage per person (MJ)</h4>
     <RadzenColumnSeries Data="@bills" CategoryProperty="YearStr" ValueProperty="GasUsage" Title="My data" />
     <RadzenLineSeries Smooth="false" Data="@gasRes" CategoryProperty="YearStr" Title="Community data" LineType="LineType.Dashed" ValueProperty="AveMjPcPa">
         <RadzenMarkers MarkerType="MarkerType.Square" />
