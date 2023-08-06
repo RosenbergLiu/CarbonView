@@ -3,18 +3,14 @@
 <PageTitle>Carbon Footprint</PageTitle>
 <RadzenText Text="Carbon Footprint" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
 <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
-
-    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Visible="@busy" />
-    <RadzenDropDown TValue="string" Value=@selectedYear Data=@yearsStr Change="@(args => UpdateChart(args.ToString()))" Style="width: 100%; max-width: 100%;"/>
-    <RadzenChart Style="height: 50rem" >
-        <RadzenPieSeries Data="@data" Title="CO2 Emission" CategoryProperty="Category" ValueProperty="Value" >
-            <RadzenSeriesDataLabels Visible="false" />
-        </RadzenPieSeries>
-        <RadzenLegend Position="LegendPosition.Bottom" />
-    </RadzenChart>
-    
-
-
+<RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Visible="@busy" />
+<RadzenDropDown TValue="string" Value=@selectedYear Data=@yearsStr Change="@(args => UpdateChart(args.ToString()))" Style="width: 100%; max-width: 100%;" />
+<RadzenChart Style="height: 50rem">
+    <RadzenPieSeries Data="@data" Title="CO2 Emission" CategoryProperty="Category" ValueProperty="Value">
+        <RadzenSeriesDataLabels Visible="false" />
+    </RadzenPieSeries>
+    <RadzenLegend Position="LegendPosition.Bottom" />
+</RadzenChart>
 
 @code {
     [Inject]
