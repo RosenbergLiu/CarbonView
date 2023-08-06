@@ -1,5 +1,23 @@
 ﻿@page "/footprint"
 
+<PageTitle>Carbon Footprint</PageTitle>
+<RadzenText Text="Carbon Footprint" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
+<RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
+
+<div class="rz-m-12">
+    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Visible="@busy" />
+    <RadzenDropDown TValue="string" Value=@selectedYear Data=@yearsStr Change="@(args => UpdateChart(args.ToString()))" Style="width: 100%; max-width: 100%;"/>
+    <RadzenChart Style="height: 50rem" >
+        <RadzenPieSeries Data="@data" Title="Activities" CategoryProperty="Category" ValueProperty="Value">
+            <RadzenSeriesDataLabels Visible="false" />
+        </RadzenPieSeries>
+        <RadzenLegend Position="LegendPosition.Right" />
+    </RadzenChart>
+</div>
+    
+
+
+
 @code {
     [Inject]
     protected IJSRuntime JSRuntime { get; set; }
@@ -20,24 +38,136 @@
     protected NotificationService NotificationService { get; set; }
 
     [Inject]
-    public ActivitiesDBService dBService { get; set; }
+    public ActivitiesDBService activitiesDBService { get; set; }
 
     [Inject]
     public NavigationManager navigation { get; set; }
 
     string errorMessage = "";
     bool errorVisible = false;
-    bool electricityChartVisible = false;
-    bool gasChartVisible = false;
     bool busy = false;
+    bool visuVisible = false;
 
-    protected IEnumerable<ActivityRecord> records;
+    IEnumerable<string> yearsStr;
+    string selectedYear;
 
-    protected override void OnInitialized()
+    int members;
+
+    List<ActivityRecord> activities = new List<ActivityRecord>();
+
+    protected override async Task OnInitializedAsync()
     {
         if (!Preferences.Default.Get("loggedin", false))
         {
             navigation.NavigateTo("/login");
         }
+        busy = true;
+
+        activities = new List<ActivityRecord>();
+        activities = await activitiesDBService.GetActivityRecordsAsync(false);
+
+        if (activities.Count > 0)
+        {
+            var years = activities.Select(a => a.Year);
+            selectedYear = years.Max().ToString();
+            yearsStr = activities.OrderByDescending(a => a.Year).Select(a => a.YearStr);
+
+            members = Preferences.Default.Get("members", 1);
+            activities.ForEach(record => record.BeefEmissionPc = record.BeefEmission / members);
+            activities.ForEach(record => record.CoffeeEmissionPc = record.CoffeeEmission / members);
+            activities.ForEach(record => record.LampEmissionPc = record.LampEmission / members);
+            activities.ForEach(record => record.PorkEmissionPc = record.PorkEmission / members);
+            activities.ForEach(record => record.MilkEmissionPc = record.MilkEmission / members);
+            activities.ForEach(record => record.PoultryEmissionPc = record.PoultryEmission / members);
+            activities.ForEach(record => record.EggsEmissionPc = record.EggsEmission / members);
+            activities.ForEach(record => record.CheeseEmissionPc = record.CheeseEmission / members);
+            activities.ForEach(record => record.ChocolateEmissionPc = record.ChocolateEmission / members);
+            activities.ForEach(record => record.RiceEmissionPc = record.RiceEmission / members);
+            activities.ForEach(record => record.OliverOilEmissionPc = record.OliverOilEmission / members);
+
+            UpdateChart(selectedYear);
+            visuVisible = true;
+        }
+        else
+        {
+            errorMessage = "No data";
+            errorVisible = true;
+        }
+        busy = false;
+    }
+
+    class DataItem
+    {
+        public string Category { get; set; }
+        public double? Value { get; set; }
+    }
+
+    DataItem[] data;
+
+    void UpdateChart(string selectedValue)
+    {
+        busy = true;
+        var selectedYearData = activities.Where(a => a.YearStr == selectedValue).FirstOrDefault();
+        data = new DataItem[]
+        {
+            new DataItem
+            {
+                Category = "Beef",
+                Value = selectedYearData.BeefEmissionPc
+            },
+            new DataItem
+            {
+                Category = "Lamp",
+                Value = selectedYearData.LampEmissionPc
+            },
+            new DataItem
+            {
+                Category = "Pork",
+                Value = selectedYearData.PorkEmissionPc
+            },
+            new DataItem
+            {
+                Category = "Poultry",
+                Value = selectedYearData.PoultryEmissionPc
+            },
+            new DataItem
+            {
+                Category = "OliverOil",
+                Value = selectedYearData.OliverOilEmissionPc
+            },
+            new DataItem
+            {
+                Category = "Coffee",
+                Value = selectedYearData.CoffeeEmissionPc
+            },
+            new DataItem
+            {
+                Category = "Cheese",
+                Value = selectedYearData.CheeseEmissionPc
+            },
+            new DataItem
+            {
+                Category = "Chocolate",
+                Value = selectedYearData.ChocolateEmissionPc
+            },
+            new DataItem
+            {
+                Category = "Rice",
+                Value = selectedYearData.RiceEmissionPc
+            },
+            new DataItem
+            {
+                Category = "Milk",
+                Value = selectedYearData.MilkEmissionPc
+            },
+            new DataItem
+            {
+                Category = "Eggs",
+                Value = selectedYearData.EggsEmissionPc
+            },
+        };
+
+        visuVisible = true;
+        busy = false;
     }
 }

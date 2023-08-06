@@ -6,97 +6,93 @@
     <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
     <RadzenTemplateForm TItem="ActivityRecord" Data="@activityRecord" Visible="@(activityRecord != null)" Submit="@FormSubmit">
         <RadzenRow>
-            <RadzenColumn SizeMD="3">
-            </RadzenColumn>
-            <RadzenColumn SizeMD="9">
-                <RadzenText Text="Consumption by Kg" TextStyle="TextStyle.H6" />
-            </RadzenColumn>
+            <RadzenText Text="Consumption by Kg" TextStyle="TextStyle.H6" />
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
-            <RadzenColumn SizeMD="3">
+            <RadzenColumn>
                 <RadzenLabel Text="Beef" Component="Beef" style="width: 100%" />
             </RadzenColumn>
-            <RadzenColumn SizeMD="9">
+            <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Beef" Name="Beef" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
-            <RadzenColumn SizeMD="3">
+            <RadzenColumn>
                 <RadzenLabel Text="Lamp" Component="Lamp" style="width: 100%" />
             </RadzenColumn>
-            <RadzenColumn SizeMD="9">
+            <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Lamp" Name="Lamp" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
-            <RadzenColumn SizeMD="3">
+            <RadzenColumn>
                 <RadzenLabel Text="Pork" Component="Pork" style="width: 100%" />
             </RadzenColumn>
-            <RadzenColumn SizeMD="9">
+            <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Pork" Name="Pork" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
-            <RadzenColumn SizeMD="3">
+            <RadzenColumn>
                 <RadzenLabel Text="Poultry" Component="Poultry" style="width: 100%" />
             </RadzenColumn>
-            <RadzenColumn SizeMD="9">
+            <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Poultry" Name="Poultry" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
-            <RadzenColumn SizeMD="3">
+            <RadzenColumn>
                 <RadzenLabel Text="Coffee" Component="Coffee" style="width: 100%" />
             </RadzenColumn>
-            <RadzenColumn SizeMD="9">
+            <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Coffee" Name="Coffee" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
-            <RadzenColumn SizeMD="3">
+            <RadzenColumn>
                 <RadzenLabel Text="Milk" Component="Milk" style="width: 100%" />
             </RadzenColumn>
-            <RadzenColumn SizeMD="9">
+            <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Milk" Name="Milk" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
-            <RadzenColumn SizeMD="3">
-                <RadzenLabel Text="OliverOil" Component="OliverOil" style="width: 100%" />
+            <RadzenColumn>
+                <RadzenLabel Text="Oliver Oil" Component="OliverOil" style="width: 100%" />
             </RadzenColumn>
-            <RadzenColumn SizeMD="9">
+            <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.OliverOil" Name="OliverOil" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
-            <RadzenColumn SizeMD="3">
+            <RadzenColumn>
                 <RadzenLabel Text="Cheese" Component="Cheese" style="width: 100%" />
             </RadzenColumn>
-            <RadzenColumn SizeMD="9">
+            <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Cheese" Name="Cheese" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
-            <RadzenColumn SizeMD="3">
+            <RadzenColumn>
                 <RadzenLabel Text="Eggs" Component="Eggs" style="width: 100%" />
             </RadzenColumn>
-            <RadzenColumn SizeMD="9">
+            <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Eggs" Name="Eggs" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
-            <RadzenColumn SizeMD="3">
+            <RadzenColumn>
                 <RadzenLabel Text="Rice" Component="Rice" style="width: 100%" />
             </RadzenColumn>
-            <RadzenColumn SizeMD="9">
+            <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Rice" Name="Rice" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
-            <RadzenColumn SizeMD="3">
+            <RadzenColumn>
                 <RadzenLabel Text="Chocolate" Component="Chocolate" style="width: 100%" />
             </RadzenColumn>
-            <RadzenColumn SizeMD="9">
+            <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Chocolate" Name="Chocolate" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>

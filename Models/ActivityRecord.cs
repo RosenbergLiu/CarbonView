@@ -5,7 +5,7 @@ namespace GreenITBlazor.Models
     public class ActivityRecord
     {
         [PrimaryKey]
-        public int? Year { get; set; }
+        public int Year { get; set; }
 
         private string _yearStr;
 
@@ -27,6 +27,7 @@ namespace GreenITBlazor.Models
 
         private double _beef;
         public double BeefEmission { get; private set; }
+        public double? BeefEmissionPc { get; set; }
         public double Beef
         {
             get { return _beef; }
@@ -39,6 +40,7 @@ namespace GreenITBlazor.Models
 
         private double _coffee;
         public double CoffeeEmission { get; private set; }
+        public double? CoffeeEmissionPc { get; set; }
         public double Coffee
         {
             get { return _coffee; }
@@ -51,6 +53,7 @@ namespace GreenITBlazor.Models
 
         private double _milk;
         public double MilkEmission { get; private set; }
+        public double? MilkEmissionPc { get; set; }
         public double Milk
         {
             get { return _milk; }
@@ -63,6 +66,7 @@ namespace GreenITBlazor.Models
 
         private double _lamp;
         public double LampEmission { get; private set; }
+        public double? LampEmissionPc { get; set; }
         public double Lamp
         {
             get { return _lamp; }
@@ -75,6 +79,7 @@ namespace GreenITBlazor.Models
 
         private double _pork;
         public double PorkEmission { get; private set; }
+        public double? PorkEmissionPc { get; set; }
         public double Pork
         {
             get { return _pork; }
@@ -87,6 +92,7 @@ namespace GreenITBlazor.Models
 
         private double _poultry;
         public double PoultryEmission { get; private set; }
+        public double? PoultryEmissionPc { get; set; }
         public double Poultry
         {
             get { return _poultry; }
@@ -99,6 +105,7 @@ namespace GreenITBlazor.Models
 
         private double _oliverOil;
         public double OliverOilEmission { get; private set; }
+        public double? OliverOilEmissionPc { get; set; }
         public double OliverOil
         {
             get { return _oliverOil; }
@@ -111,6 +118,7 @@ namespace GreenITBlazor.Models
 
         private double _cheese;
         public double CheeseEmission { get; private set; }
+        public double? CheeseEmissionPc { get; set; }
         public double Cheese
         {
             get { return _cheese; }
@@ -123,6 +131,7 @@ namespace GreenITBlazor.Models
 
         private double _eggs;
         public double EggsEmission { get; private set; }
+        public double? EggsEmissionPc { get; set; }
         public double Eggs
         {
             get { return _eggs; }
@@ -135,6 +144,7 @@ namespace GreenITBlazor.Models
 
         private double _rice;
         public double RiceEmission { get; private set; }
+        public double? RiceEmissionPc { get; set; }
         public double Rice
         {
             get { return _rice; }
@@ -147,6 +157,7 @@ namespace GreenITBlazor.Models
 
         private double _chocolate;
         public double ChocolateEmission { get; private set; }
+        public double? ChocolateEmissionPc { get; set; }
         public double Chocolate
         {
             get { return _chocolate; }
