@@ -17,7 +17,7 @@
             <RadzenDataGrid @ref="grid0" ColumnWidth="200px" AllowFiltering="false" FilterMode="FilterMode.Advanced" AllowPaging="false" AllowSorting="true" ShowPagingSummary="true"
                             Data="@records" Count=count LoadData=@Grid0LoadData TItem="ActivityRecord" RowSelect="@EditRow" AllowGrouping="false" AllowCompositeDataCells="false" AllowColumnResize="false" AllowColumnReorder="false" AllowColumnPicking="false" AllowAlternatingRows="false">
                 <Columns>
-                    <RadzenDataGridColumn TItem="ActivityRecord" Property="Year" Title="Bill Records">
+                    <RadzenDataGridColumn TItem="ActivityRecord" Property="Year" Title="Activity Records">
                     </RadzenDataGridColumn>
                     <RadzenDataGridColumn TItem="ActivityRecord" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
                         <Template Context="ActivityRecord">
@@ -86,13 +86,13 @@
 
     protected async Task AddButtonClick(MouseEventArgs args)
     {
-        await DialogService.OpenAsync<AddActivity>("Add record", null);
+        await DialogService.OpenAsync<AddActivity>("Add Record", null);
         await grid0.Reload();
     }
 
     protected async Task EditRow(ActivityRecord args)
     {
-        await DialogService.OpenAsync<EditActivity>("Edit record", new Dictionary<string, object> { { "Year", args.Year } });
+        await DialogService.OpenAsync<EditActivity>("Edit Record", new Dictionary<string, object> { { "Year", args.Year } });
         await grid0.Reload();
     }
 

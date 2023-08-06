@@ -53,7 +53,10 @@
     [Inject]
     public BillsDBService dBService { get; set; }
 
-    protected string errorMessage { get; set; }
+    string errorMessage;
+    bool errorVisible;
+
+    protected BillRecord billRecord;
 
     [Parameter]
     public int year { get; set; }
@@ -63,9 +66,6 @@
         errorMessage = "";
         billRecord = await dBService.GetBillRecordAsync(year);
     }
-
-    protected bool errorVisible;
-    protected BillRecord billRecord;
 
     protected async Task FormSubmit()
     {

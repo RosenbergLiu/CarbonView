@@ -69,7 +69,7 @@ namespace GreenITBlazor.Models
             set
             {
                 _lamp = value;
-                LampEmission = _lamp * 3;
+                LampEmission = _lamp * 24;
             }
         }
 
@@ -81,7 +81,7 @@ namespace GreenITBlazor.Models
             set
             {
                 _pork = value;
-                PorkEmission = _pork * 3;
+                PorkEmission = _pork * 7;
             }
         }
 
@@ -93,7 +93,7 @@ namespace GreenITBlazor.Models
             set
             {
                 _poultry = value;
-                PoultryEmission = _poultry * 3;
+                PoultryEmission = _poultry * 6;
             }
         }
 
@@ -105,7 +105,7 @@ namespace GreenITBlazor.Models
             set
             {
                 _oliverOil = value;
-                OliverOilEmission = _oliverOil * 3;
+                OliverOilEmission = _oliverOil * 6;
             }
         }
 
@@ -117,7 +117,7 @@ namespace GreenITBlazor.Models
             set
             {
                 _cheese = value;
-                CheeseEmission = _cheese * 3;
+                CheeseEmission = _cheese * 21;
             }
         }
 
@@ -129,7 +129,7 @@ namespace GreenITBlazor.Models
             set
             {
                 _eggs = value;
-                EggsEmission = _eggs * 3;
+                EggsEmission = _eggs * 4.5;
             }
         }
 
@@ -141,7 +141,7 @@ namespace GreenITBlazor.Models
             set
             {
                 _rice = value;
-                RiceEmission = _rice * 3;
+                RiceEmission = _rice * 4;
             }
         }
 
@@ -153,7 +153,7 @@ namespace GreenITBlazor.Models
             set
             {
                 _chocolate = value;
-                ChocolateEmission = _chocolate * 3;
+                ChocolateEmission = _chocolate * 19;
             }
         }
     }

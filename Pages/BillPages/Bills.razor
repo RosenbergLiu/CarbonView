@@ -86,13 +86,13 @@
 
     protected async Task AddButtonClick(MouseEventArgs args)
     {
-        await DialogService.OpenAsync<AddBill>("Add record", null);
+        await DialogService.OpenAsync<AddBill>("Add Record", null);
         await grid0.Reload();
     }
 
     protected async Task EditRow(BillRecord args)
     {
-        await DialogService.OpenAsync<EditBill>("Edit record", new Dictionary<string, object> { { "Year", args.Year } });
+        await DialogService.OpenAsync<EditBill>("Edit Record", new Dictionary<string, object> { { "Year", args.Year } });
         await grid0.Reload();
     }
 

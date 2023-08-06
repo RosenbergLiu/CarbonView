@@ -1,26 +1,35 @@
 ﻿@page "/add-activity"
 
 <PageTitle>Add Activity</PageTitle>
+
 <RadzenColumn SizeMD=12>
     <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
     <RadzenTemplateForm TItem="ActivityRecord" Data="@activityRecord" Visible="@(activityRecord != null)" Submit="@FormSubmit">
-        <RadzenRow style="margin-bottom: 1rem">
+        <RadzenRow style="margin-bottom: 0.5rem">
             <RadzenColumn SizeMD="3">
                 <RadzenLabel Text="Year" Component="Year" style="width: 100%" />
             </RadzenColumn>
             <RadzenColumn SizeMD="9">
-                <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Year" Name="Year" ShowUpDown="false" />
+                <RadzenTextBox style="display: block; width: 100%" @bind-Value="@activityRecord.YearStr" Name="Year" ShowUpDown="false" />
+                <RadzenRequiredValidator Component="Year" Text="Year is required" />
             </RadzenColumn>
         </RadzenRow>
-        <RadzenRow style="margin-bottom: 1rem">
+        <RadzenRow>
             <RadzenColumn SizeMD="3">
-                <RadzenLabel Text="Beef Usage (kg)" Component="Beef" style="width: 100%" />
+            </RadzenColumn>
+            <RadzenColumn SizeMD="9">
+                <RadzenText Text="Consumption by Kg" TextStyle="TextStyle.H6"/>
+            </RadzenColumn>
+        </RadzenRow>
+        <RadzenRow style="margin-bottom: 0.2rem">
+            <RadzenColumn SizeMD="3">
+                <RadzenLabel Text="Beef" Component="Beef" style="width: 100%" />
             </RadzenColumn>
             <RadzenColumn SizeMD="9">
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Beef" Name="Beef" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
-        <RadzenRow style="margin-bottom: 1rem">
+        <RadzenRow style="margin-bottom: 0.2rem">
             <RadzenColumn SizeMD="3">
                 <RadzenLabel Text="Lamp" Component="Lamp" style="width: 100%" />
             </RadzenColumn>
@@ -28,7 +37,7 @@
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Lamp" Name="Lamp" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
-        <RadzenRow style="margin-bottom: 1rem">
+        <RadzenRow style="margin-bottom: 0.2rem">
             <RadzenColumn SizeMD="3">
                 <RadzenLabel Text="Pork" Component="Pork" style="width: 100%" />
             </RadzenColumn>
@@ -36,7 +45,7 @@
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Pork" Name="Pork" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
-        <RadzenRow style="margin-bottom: 1rem">
+        <RadzenRow style="margin-bottom: 0.2rem">
             <RadzenColumn SizeMD="3">
                 <RadzenLabel Text="Poultry" Component="Poultry" style="width: 100%" />
             </RadzenColumn>
@@ -44,7 +53,7 @@
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Poultry" Name="Poultry" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
-        <RadzenRow style="margin-bottom: 1rem">
+        <RadzenRow style="margin-bottom: 0.2rem">
             <RadzenColumn SizeMD="3">
                 <RadzenLabel Text="Coffee" Component="Coffee" style="width: 100%" />
             </RadzenColumn>
@@ -52,7 +61,7 @@
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Coffee" Name="Coffee" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
-        <RadzenRow style="margin-bottom: 1rem">
+        <RadzenRow style="margin-bottom: 0.2rem">
             <RadzenColumn SizeMD="3">
                 <RadzenLabel Text="Milk" Component="Milk" style="width: 100%" />
             </RadzenColumn>
@@ -60,7 +69,7 @@
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Milk" Name="Milk" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
-        <RadzenRow style="margin-bottom: 1rem">
+        <RadzenRow style="margin-bottom: 0.2rem">
             <RadzenColumn SizeMD="3">
                 <RadzenLabel Text="OliverOil" Component="OliverOil" style="width: 100%" />
             </RadzenColumn>
@@ -68,7 +77,7 @@
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.OliverOil" Name="OliverOil" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
-        <RadzenRow style="margin-bottom: 1rem">
+        <RadzenRow style="margin-bottom: 0.2rem">
             <RadzenColumn SizeMD="3">
                 <RadzenLabel Text="Cheese" Component="Cheese" style="width: 100%" />
             </RadzenColumn>
@@ -76,7 +85,7 @@
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Cheese" Name="Cheese" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
-        <RadzenRow style="margin-bottom: 1rem">
+        <RadzenRow style="margin-bottom: 0.2rem">
             <RadzenColumn SizeMD="3">
                 <RadzenLabel Text="Eggs" Component="Eggs" style="width: 100%" />
             </RadzenColumn>
@@ -84,7 +93,7 @@
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Eggs" Name="Eggs" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
-        <RadzenRow style="margin-bottom: 1rem">
+        <RadzenRow style="margin-bottom: 0.2rem">
             <RadzenColumn SizeMD="3">
                 <RadzenLabel Text="Rice" Component="Rice" style="width: 100%" />
             </RadzenColumn>
@@ -92,7 +101,7 @@
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Rice" Name="Rice" ShowUpDown="false" />
             </RadzenColumn>
         </RadzenRow>
-        <RadzenRow style="margin-bottom: 1rem">
+        <RadzenRow style="margin-bottom: 0.2rem">
             <RadzenColumn SizeMD="3">
                 <RadzenLabel Text="Chocolate" Component="Chocolate" style="width: 100%" />
             </RadzenColumn>
@@ -102,7 +111,7 @@
         </RadzenRow>
 
 
-        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End" Gap="0.5rem">
+        <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End" Gap="0.2rem" style="margin-top: 1rem">
             <RadzenButton ButtonStyle="ButtonStyle.Primary" ButtonType="ButtonType.Submit" Icon="save" Text="Save" Variant="Variant.Flat" />
             <RadzenButton ButtonStyle="ButtonStyle.Light" Text="Cancel" Variant="Variant.Flat" Click="@CancelButtonClick" />
         </RadzenStack>
