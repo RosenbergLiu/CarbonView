@@ -15,8 +15,8 @@ public partial class App : Application
         // Manipulate Window object
         if(DeviceInfo.Current.Platform == DevicePlatform.WinUI)
         {
-            window.Width = 540;
-            window.Height = 1170;
+            window.Width = 360;
+            window.Height = 780;
         }
         
         return window;
