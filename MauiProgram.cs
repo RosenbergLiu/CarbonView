@@ -25,6 +25,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<BillsDBService>();
         builder.Services.AddSingleton<ActivitiesDBService>();
         builder.Services.AddSingleton<ApiService>();
+        builder.Services.AddSingleton<SystemDBService>();
 
         Preferences.Default.Set("loggedin", false);
 

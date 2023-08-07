@@ -16,7 +16,7 @@ namespace GreenITBlazor.Services
             if (Database is not null)
                 return;
 
-            Database = new SQLiteAsyncConnection(Constants.DatabasePath, Constants.Flags);
+            Database = new SQLiteAsyncConnection(Constants.UserDatabasePath, Constants.Flags);
             await Database.CreateTableAsync<BillRecord>();
         }
 
