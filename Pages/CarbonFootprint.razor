@@ -12,7 +12,7 @@
     <RadzenLegend Position="LegendPosition.Bottom" />
 </RadzenChart>
 
-<RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.ExtraSmall" AlertStyle="AlertStyle.Light" Visible="@tipVisible" AllowClose="true">@tipMessage</RadzenAlert>
+<RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.ExtraSmall" AlertStyle="AlertStyle.Light" Visible="@tipVisible" AllowClose="true" Style="margin-top: 2rem">@tipMessage</RadzenAlert>
 
 
 @code {
@@ -46,7 +46,6 @@
     string errorMessage = "";
     bool errorVisible = false;
     bool busy = false;
-    bool visuVisible = false;
     string tipMessage;
     bool tipVisible;
 
@@ -80,7 +79,6 @@
             members = Preferences.Default.Get("members", 1);
 
             UpdateChart(selectedYear);
-            visuVisible = true;
         }
         else
         {
@@ -163,7 +161,6 @@
             },
         };
 
-        visuVisible = true;
         busy = false;
     }
 }

@@ -69,7 +69,7 @@ a, .btn-link {
 }
 
 .rz-dialog-content {
-    max-height: 60vh;
+    max-height: 50vh;
     overflow-y: auto;
 }
 

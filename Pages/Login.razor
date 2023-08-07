@@ -9,7 +9,7 @@
             <RadzenRequiredValidator Component="Pin" Text="Pin is required" />
             <RadzenLengthValidator Component="Pin" Min="4" Max="4" Text="Pin should be 4 numbers" Popup=false Style="position: absolute" />
         </RadzenRow>
-        <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Save" Variant="Variant.Flat" Click="SetPin" />
+        <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Save" Variant="Variant.Flat" Click="SetPin" Size="ButtonSize.Large"/>
         <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
     </RadzenStack>
 }
@@ -22,7 +22,7 @@ else
             <RadzenRequiredValidator Component="Pin" Text="Pin is required" />
             <RadzenLengthValidator Component="Pin" Min="4" Max="4" Text="Pin should be 4 numbers" Popup=false Style="position: absolute" />
         </RadzenRow>
-        <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Login" Variant="Variant.Flat" Click="TryLogin" />
+        <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Login" Variant="Variant.Flat" Click="TryLogin" Size="ButtonSize.Large" />
         <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
     </RadzenStack>
 }
