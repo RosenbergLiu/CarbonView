@@ -37,6 +37,9 @@
         <GenerateTemporaryStoreCertificate>True</GenerateTemporaryStoreCertificate>
         <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
         <AppInstallerUri>C:\Users\xygen\Documents</AppInstallerUri>
+        <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+        <PackageCertificateThumbprint>A75C5A7F58B81FB508C8434E23D8880A1AC6B4B7</PackageCertificateThumbprint>
+        <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     </PropertyGroup>
 
     <ItemGroup>
