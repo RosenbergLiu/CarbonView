@@ -68,6 +68,11 @@ a, .btn-link {
     display: none;
 }
 
+.rz-dialog-content {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
 @supports (-webkit-touch-callout: none) {
     .status-bar-safe-area {
         display: flex;
