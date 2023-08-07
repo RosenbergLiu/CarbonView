@@ -26,6 +26,8 @@
     <RadzenValueAxis Min="0" />
 </RadzenChart>
 
+<RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Light" Visible="@tipVisible" AllowClose="true">@tipMessage</RadzenAlert>
+
 
 @code{
     [Inject]
@@ -37,6 +39,9 @@
     [Inject]
     public NavigationManager navigation { get; set; }
 
+    [Inject]
+    public SystemDBService sysDBService { get; set; }
+
     List<CityOfCaseyFieldRes> electricityRes = new List<CityOfCaseyFieldRes>();
     List<CityOfCaseyFieldRes> gasRes = new List<CityOfCaseyFieldRes>();
     List<BillRecord> bills = new List<BillRecord>();
@@ -45,6 +50,9 @@
     bool electricityChartVisible = false;
     bool gasChartVisible = false;
     bool busy = false;
+    string tipMessage;
+    bool tipVisible;
+
 
     NetworkAccess accessType = Connectivity.Current.NetworkAccess;
 
@@ -57,6 +65,10 @@
             navigation.NavigateTo("/login");
         }
         busy = true;
+
+        tipMessage = await sysDBService.GetRandomTip();
+        tipVisible = true;
+
         members = Preferences.Default.Get("members", 1);
         bills = new List<BillRecord>();
         bills = await billsDBService.GetBillRecordsAsync(false);
@@ -96,6 +108,8 @@
             errorVisible = true;
         }
         busy = false;
+
+        StateHasChanged();
     }
 
     async void Refresh()

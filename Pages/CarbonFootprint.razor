@@ -4,13 +4,16 @@
 <RadzenText Text="Carbon Footprint" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
 <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
 <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Visible="@busy" />
-<RadzenDropDown TValue="string" Value=@selectedYear Data=@yearsStr Change="@(args => UpdateChart(args.ToString()))" Style="width: 100%; max-width: 100%;" />
-<RadzenChart Style="height: 50rem">
+<RadzenDropDown TValue="string" Value=@selectedYear Data=@yearsStr Change="@(args => UpdateChart(args.ToString()))" Style="width: 100%; max-width: 100%;" Visible="@(!errorVisible)"/>
+<RadzenChart Style="height: 28rem" Visible="@(!errorVisible)">
     <RadzenPieSeries Data="@data" Title="CO2 Emission" CategoryProperty="Category" ValueProperty="Value">
         <RadzenSeriesDataLabels Visible="false" />
     </RadzenPieSeries>
     <RadzenLegend Position="LegendPosition.Bottom" />
 </RadzenChart>
+
+<RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.ExtraSmall" AlertStyle="AlertStyle.Light" Visible="@tipVisible" AllowClose="true">@tipMessage</RadzenAlert>
+
 
 @code {
     [Inject]
@@ -37,10 +40,15 @@
     [Inject]
     public NavigationManager navigation { get; set; }
 
+    [Inject]
+    public SystemDBService sysDBService { get; set; }
+
     string errorMessage = "";
     bool errorVisible = false;
     bool busy = false;
     bool visuVisible = false;
+    string tipMessage;
+    bool tipVisible;
 
     IEnumerable<string> yearsStr;
     string selectedYear;
@@ -56,6 +64,9 @@
             navigation.NavigateTo("/login");
         }
         busy = true;
+
+        tipMessage = await sysDBService.GetRandomTip();
+        tipVisible = true;
 
         activities = new List<ActivityRecord>();
         activities = await activitiesDBService.GetActivityRecordsAsync(false);
@@ -77,6 +88,8 @@
             errorVisible = true;
         }
         busy = false;
+
+        StateHasChanged();
     }
 
     class DataItem

@@ -4,26 +4,26 @@
 {
     <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center" Gap="1rem" Visible="@firstLogin">
         <RadzenText Text="Set a PIN" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
-        <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
         <RadzenRow style="margin-bottom: 1rem">
             <RadzenNumeric style="display: block; width: 100%" @bind-Value="@pinInput" Name="Pin" ShowUpDown="false" />
             <RadzenRequiredValidator Component="Pin" Text="Pin is required" />
             <RadzenLengthValidator Component="Pin" Min="4" Max="4" Text="Pin should be 4 numbers" Popup=false Style="position: absolute" />
         </RadzenRow>
         <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Save" Variant="Variant.Flat" Click="SetPin" />
+        <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
     </RadzenStack>
 }
 else
 {
     <RadzenStack Orientation="Orientation.Vertical" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.Center" Gap="1rem" Visible="@(!firstLogin)">
         <RadzenText Text="Enter the PIN" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
-        <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
         <RadzenRow style="margin-bottom: 1rem">
             <RadzenNumeric style="display: block; width: 100%" @bind-Value="@pinInput" Name="Pin" ShowUpDown="false" />
             <RadzenRequiredValidator Component="Pin" Text="Pin is required" />
             <RadzenLengthValidator Component="Pin" Min="4" Max="4" Text="Pin should be 4 numbers" Popup=false Style="position: absolute" />
         </RadzenRow>
         <RadzenButton ButtonStyle="ButtonStyle.Primary" Text="Login" Variant="Variant.Flat" Click="TryLogin" />
+        <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
     </RadzenStack>
 }
 

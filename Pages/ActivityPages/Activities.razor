@@ -33,6 +33,9 @@
     </RadzenRow>
 </RadzenStack>
 
+<RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Light" Visible="@tipVisible" AllowClose="true">@tipMessage</RadzenAlert>
+
+
 @code {
     [Inject]
     protected IJSRuntime JSRuntime { get; set; }
@@ -58,17 +61,27 @@
     [Inject]
     public NavigationManager navigation { get; set; }
 
+    [Inject]
+    public SystemDBService sysDBService { get; set; }
+
     protected IEnumerable<ActivityRecord> records;
 
     protected RadzenDataGrid<ActivityRecord> grid0;
     protected int count;
 
-    protected override void OnInitialized()
+    string tipMessage;
+    bool tipVisible;
+
+    protected override async Task OnInitializedAsync()
     {
         if (!Preferences.Default.Get("loggedin", false))
         {
             navigation.NavigateTo("/login");
         }
+
+        tipMessage = await sysDBService.GetRandomTip();
+        tipVisible = true;
+        StateHasChanged();
     }
 
     protected async Task Grid0LoadData(LoadDataArgs args)

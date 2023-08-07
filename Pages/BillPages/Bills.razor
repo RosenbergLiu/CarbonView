@@ -33,6 +33,10 @@
     </RadzenRow>
 </RadzenStack>
 
+<RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Light" Visible="@tipVisible" AllowClose="true">@tipMessage</RadzenAlert>
+
+
+
 @code {
     [Inject]
     protected IJSRuntime JSRuntime { get; set; }
@@ -53,7 +57,10 @@
     protected NotificationService NotificationService { get; set; }
 
     [Inject]
-    public BillsDBService dBService { get; set; }
+    public BillsDBService billsDBService { get; set; }
+
+    [Inject]
+    public SystemDBService sysDBService { get; set; }
 
     [Inject]
     public NavigationManager navigation { get; set; }
@@ -63,19 +70,26 @@
     protected RadzenDataGrid<BillRecord> grid0;
     protected int count;
 
-    protected override void OnInitialized()
+    string tipMessage;
+    bool tipVisible;
+
+    protected override async void OnInitialized()
     {
         if (!Preferences.Default.Get("loggedin", false))
         {
             navigation.NavigateTo("/login");
         }
+
+        tipMessage = await sysDBService.GetRandomTip();
+        tipVisible = true;
+        StateHasChanged();
     }
 
     protected async Task Grid0LoadData(LoadDataArgs args)
     {
         try
         {
-            records = await dBService.GetBillRecordsAsync(true);
+            records = await billsDBService.GetBillRecordsAsync(true);
             count = records.Count();
         }
         catch (System.Exception ex)
@@ -102,7 +116,7 @@
         {
             if (await DialogService.Confirm("Are you sure you want to delete this record?") == true)
             {
-                string deleteResult = await dBService.DeletetBillRecordAsync(billRecord);
+                string deleteResult = await billsDBService.DeletetBillRecordAsync(billRecord);
 
                 if (deleteResult == "OK")
                 {

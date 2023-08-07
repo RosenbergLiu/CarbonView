@@ -1,4 +1,5 @@
-﻿using SQLite;
+﻿using GreenITBlazor.Models;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +26,16 @@ namespace GreenITBlazor.Services
 
             using FileStream outputStream = File.Create(targetFile);
             await inputStream.CopyToAsync(outputStream);
+            Database = new SQLiteAsyncConnection(Constants.SystemDatabasePath, Constants.Flags);
         }
 
         public async Task<string> GetRandomTip()
         {
             await Init();
-            return await Database.Table<Tip>().OrderBy(r => r.Year).ToListAsync();
+            var tips =  await Database.Table<Tip>().ToListAsync();
+            Random random = new Random();
+            int index = random.Next(tips.Count);
+            return tips[index].TipStr;
         }
     }
 }
