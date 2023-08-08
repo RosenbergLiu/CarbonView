@@ -10,8 +10,9 @@
 7. Double click the .msix file and click "Install" button to install.
 	=====To uninstall:
 	1. Search "CarbonView" in windows search bar and find the "CarbonView" app. Right click the search result and click "Uninstall".
-	2. Search "Manage computer certificates" in windows search bar and find "Manage computer certificates"
-	3. In the left side
+	2. Search "Manage computer certificates" in windows search bar and find "Manage computer certificates", open it.
+	3. In the Console Tree at left side of the window, open folder "Trusted Root Certification Authorities" and open folder "Certificates".
+	4. Find "Xiangyu Liu" in "Issued By". Right click the record and click delete. Click "Yes" to continue.
 
 
 ==========Windows Store install (Minimum Windows Version: 10.0.17763.0)
