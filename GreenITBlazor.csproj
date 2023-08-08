@@ -38,16 +38,15 @@
         <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
         <AppInstallerUri>C:\Users\xygen\Documents</AppInstallerUri>
         <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-        <PackageCertificateThumbprint>7F8C6C3409E147EF025F08FBCC5EBAB9142EC01C</PackageCertificateThumbprint>
+        <PackageCertificateThumbprint>38D3C99C019E3FD93C79BB7C09AE94323BD4B7DD</PackageCertificateThumbprint>
         <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     </PropertyGroup>
 
     <ItemGroup>
         <!-- App Icon -->
-        <MauiIcon Include="Resources\AppIcon\appicon.svg"/>
+        <MauiIcon Include="Resources\AppIcon\appicon.svg" />
 
         <!-- Splash Screen -->
-        <MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
 
         <!-- Images -->

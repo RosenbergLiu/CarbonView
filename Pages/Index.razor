@@ -7,7 +7,7 @@
 <div class="rz-m-12">
     <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Visible="@busy" />
 </div>
-<RadzenChart Visible="@electricityChartVisible" >
+<RadzenChart Visible="@chartVisible" >
     <h4>Electricity usage per person (kWh)</h4>
     <RadzenColumnSeries Data="@bills" CategoryProperty="YearStr" ValueProperty="ElectricityUsagePc" Title="My data" />
     <RadzenLineSeries Smooth="false" Data="@electricityRes" CategoryProperty="YearStr" Title="Community data" LineType="LineType.Dashed" ValueProperty="AveKwhPcPa">
@@ -16,7 +16,7 @@
     <RadzenLegend Position="LegendPosition.Bottom" />
     <RadzenValueAxis Min="0" />
 </RadzenChart>
-<RadzenChart Visible="@gasChartVisible" >
+<RadzenChart Visible="@chartVisible">
     <h4 style="margin-top: 2rem">Gas usage per person (MJ)</h4>
     <RadzenColumnSeries Data="@bills" CategoryProperty="YearStr" ValueProperty="GasUsage" Title="My data" />
     <RadzenLineSeries Smooth="false" Data="@gasRes" CategoryProperty="YearStr" Title="Community data" LineType="LineType.Dashed" ValueProperty="AveMjPcPa">
@@ -47,8 +47,7 @@
     List<BillRecord> bills = new List<BillRecord>();
     string errorMessage = "";
     bool errorVisible = false;
-    bool electricityChartVisible = false;
-    bool gasChartVisible = false;
+    bool chartVisible = false;
     bool busy = false;
     string tipMessage;
     bool tipVisible;
@@ -99,17 +98,14 @@
         gasRes = fields.Where(f => f.Type == "Gas").OrderBy(f => f.Year).ToList();
         if (bills.Count > 0)
         {
-            electricityChartVisible = true;
-            gasChartVisible = true;
+            chartVisible = true;
         }
         else
         {
-            errorMessage = "No data";
+            errorMessage = "No data. Please add some record in My Bills and set Postcode";
             errorVisible = true;
         }
         busy = false;
-
-        StateHasChanged();
     }
 
     async void Refresh()

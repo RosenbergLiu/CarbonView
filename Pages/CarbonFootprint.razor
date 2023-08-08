@@ -6,7 +6,7 @@
 <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Visible="@busy" />
 <RadzenDropDown TValue="string" Value=@selectedYear Data=@yearsStr Change="@(args => UpdateChart(args.ToString()))" Style="width: 100%; max-width: 100%;" Visible="@(!errorVisible)"/>
 <RadzenChart Style="height: 28rem" Visible="@(!errorVisible)">
-    <RadzenPieSeries Data="@data" Title="CO2 Emission" CategoryProperty="Category" ValueProperty="Value">
+    <RadzenPieSeries Data="@data" Title="CO2 by Kg" CategoryProperty="Category" ValueProperty="Value">
         <RadzenSeriesDataLabels Visible="false" />
     </RadzenPieSeries>
     <RadzenLegend Position="LegendPosition.Bottom" />
@@ -82,7 +82,7 @@
         }
         else
         {
-            errorMessage = "No data";
+            errorMessage = "No data. Please add some record in My Activities";
             errorVisible = true;
         }
         busy = false;

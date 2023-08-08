@@ -8,6 +8,10 @@
 5. In the popup window "Select Certificate Store", select "Trusted Root Certification Authorities" and click "OK" button.
 6. Click "Next" button then click "Finish" button.
 7. Double click the .msix file and click "Install" button to install.
+	=====To uninstall:
+	1. Search "CarbonView" in windows search bar and find the "CarbonView" app. Right click the search result and click "Uninstall".
+	2. Search "Manage computer certificates" in windows search bar and find "Manage computer certificates"
+	3. In the left side
 
 
 ==========Windows Store install (Minimum Windows Version: 10.0.17763.0)
