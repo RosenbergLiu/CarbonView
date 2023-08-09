@@ -38,7 +38,7 @@
         <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
         <AppInstallerUri>C:\Users\xygen\Documents</AppInstallerUri>
         <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
-        <PackageCertificateThumbprint>38D3C99C019E3FD93C79BB7C09AE94323BD4B7DD</PackageCertificateThumbprint>
+        <PackageCertificateThumbprint>DE0BF734E38DBF7C21B170557BFCEDF816A03DA4</PackageCertificateThumbprint>
         <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     </PropertyGroup>
 

@@ -2,6 +2,9 @@
 
 <PageTitle>User Profile</PageTitle>
 <RadzenText Text="User Profile" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
+<RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Info" AllowClose="true">
+    We currently only support postcodes in City of Casey
+</RadzenAlert>
 <RadzenColumn SizeMD=12>
     <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Success" Visible="@stateVisible">@stateMessage</RadzenAlert>
     <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
