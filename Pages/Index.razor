@@ -1,12 +1,13 @@
 ﻿@page "/"
 
 <PageTitle>Compare</PageTitle>
-<RadzenText Text="Comapre" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
-<RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
+<RadzenText Text="Compare" TextStyle="TextStyle.H3" TagName="TagName.H1" Style="margin-bottom: 1rem"/>
+<RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Title="@errorMessage" Visible="@errorVisible" AllowClose="false">
+    <a style="text-decoration: underline;" @onclick="() => AlertClicked(pageUrl)">@alertLink</a>
+    <p>Or use <RadzenIcon Icon="menu" /><span></span> button on the top right to navigate to @pageName</p>
+</RadzenAlert>
 
-<div class="rz-m-12">
-    <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Visible="@busy" />
-</div>
+<RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Visible="@busy"/>
 <RadzenChart Visible="@chartVisible" >
     <h4>Electricity usage per person (kWh)</h4>
     <RadzenColumnSeries Data="@bills" CategoryProperty="YearStr" ValueProperty="ElectricityUsagePc" Title="My data" />
@@ -42,6 +43,9 @@
     [Inject]
     public SystemDBService sysDBService { get; set; }
 
+    [Inject]
+    protected NotificationService NotificationService { get; set; }
+
     List<CityOfCaseyFieldRes> electricityRes = new List<CityOfCaseyFieldRes>();
     List<CityOfCaseyFieldRes> gasRes = new List<CityOfCaseyFieldRes>();
     List<BillRecord> bills = new List<BillRecord>();
@@ -51,7 +55,9 @@
     bool busy = false;
     string tipMessage;
     bool tipVisible;
-
+    string alertLink;
+    string pageUrl;
+    string pageName;
 
     NetworkAccess accessType = Connectivity.Current.NetworkAccess;
 
@@ -91,6 +97,9 @@
         else
         {
             errorMessage = "Postcode not set. Community data will not show";
+            alertLink = "Click me to set Postcode";
+            pageUrl = "/settings";
+            pageName = "\"My Profile\"";
             errorVisible = true;
         }
         var fields = res.Select(r => r.Fields).ToList();
@@ -102,14 +111,17 @@
         }
         else
         {
-            errorMessage = "No data. Please add some record in My Bills and set Postcode";
+            errorMessage = "No Bill Record data";
+            alertLink = "Click me to add Bill records";
+            pageUrl = "/bills";
+            pageName = "\"My Bills\"";
             errorVisible = true;
         }
         busy = false;
     }
 
-    async void Refresh()
+    void AlertClicked(string pageUrl)
     {
-        await OnInitializedAsync();
+        navigation.NavigateTo(pageUrl);
     }
 }

@@ -3,9 +3,10 @@
 <PageTitle>Activities</PageTitle>
 <RadzenStack>
     <RadzenRow AlignItems="AlignItems.Center">
-        <RadzenColumn Size="12" SizeMD="6">
-            <RadzenText Text="My Activities" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
-        </RadzenColumn>
+        <RadzenText Text="My Activities" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin: 0" />
+        <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H1" style="margin: 0">
+            <a style="text-decoration: underline;" @onclick="visulizationClicked">Click me</a> to see the visualization
+        </RadzenText>
         <RadzenColumn Size="12" SizeMD="6">
             <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End" Gap="0.5rem">
                 <RadzenButton Icon="add_circle_outline" Text="Add" Click="@AddButtonClick" Variant="Variant.Flat" />
@@ -133,5 +134,10 @@
                     Detail = ex.Message
                 });
         }
+    }
+
+    void visulizationClicked()
+    {
+        navigation.NavigateTo("/footprint");
     }
 }

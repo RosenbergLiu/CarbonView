@@ -2,7 +2,10 @@
 
 <PageTitle>Carbon Footprint</PageTitle>
 <RadzenText Text="Carbon Footprint" TextStyle="TextStyle.H3" TagName="TagName.H1" style="margin-bottom: 2rem" />
-<RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Visible="@errorVisible" AllowClose="false">@errorMessage</RadzenAlert>
+<RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Title="@errorMessage" Visible="@errorVisible" AllowClose="false">
+    <a style="text-decoration: underline;" @onclick="() => AlertClicked(pageUrl)">@alertLink</a>
+    Or use <RadzenIcon Icon="menu" /><span></span> button on the top right to navigate to @pageName
+</RadzenAlert>
 <RadzenProgressBar Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate" Visible="@busy" />
 <RadzenDropDown TValue="string" Value=@selectedYear Data=@yearsStr Change="@(args => UpdateChart(args.ToString()))" Style="width: 100%; max-width: 100%;" Visible="@(!errorVisible)"/>
 <RadzenChart Style="height: 28rem" Visible="@(!errorVisible)">
@@ -48,6 +51,9 @@
     bool busy = false;
     string tipMessage;
     bool tipVisible;
+    string alertLink;
+    string pageUrl;
+    string pageName;
 
     IEnumerable<string> yearsStr;
     string selectedYear;
@@ -82,7 +88,10 @@
         }
         else
         {
-            errorMessage = "No data. Please add some record in My Activities";
+            errorMessage = "No Activity Record data";
+            alertLink = "Click me to add Activity records";
+            pageUrl = "/activities";
+            pageName = "My Activities";
             errorVisible = true;
         }
         busy = false;
@@ -111,8 +120,8 @@
             },
             new DataItem
             {
-                Category = "Lamp",
-                Value = selectedYearData.LampEmission
+                Category = "Lamb",
+                Value = selectedYearData.LambEmission
             },
             new DataItem
             {
@@ -162,5 +171,10 @@
         };
 
         busy = false;
+    }
+
+    void AlertClicked(string pageUrl)
+    {
+        navigation.NavigateTo(pageUrl);
     }
 }

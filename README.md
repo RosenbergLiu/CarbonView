@@ -16,15 +16,16 @@
 
 
 ==========Windows Store install (Minimum Windows Version: 10.0.17763.0)
-1. Go to url: https://www.microsoft.com/store/apps/9P5QXJB4Z7H9
+Waiting verification by Microsoft
 
 
 ==========Android manual install (Minimum Android Version: 5.0)
-1. In the "AndroidInstaller", click the file .apk to install
+1. In the "AndroidInstaller", click the file .apk to install.
+2. The phone may block the installer due to unknwon developer. Trust it or open it anyway depends on the OS notification
 
 
 ==========Google Play Store install (Minimum Android Version: 5.0)
-Comming soon
+Wating verification by Google
 
 
 ==========iOS App Store install (Minimum iOS Version: 16.3.1)

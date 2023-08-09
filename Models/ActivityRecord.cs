@@ -64,16 +64,16 @@ namespace GreenITBlazor.Models
             }
         }
 
-        private double _lamp;
-        public double LampEmission { get; private set; }
-        public double? LampEmissionPc { get; set; }
-        public double Lamp
+        private double _lamb;
+        public double LambEmission { get; private set; }
+        public double? LambEmissionPc { get; set; }
+        public double Lamb
         {
-            get { return _lamp; }
+            get { return _lamb; }
             set
             {
-                _lamp = value;
-                LampEmission = _lamp * 24;
+                _lamb = value;
+                LambEmission = _lamb * 24;
             }
         }
 
