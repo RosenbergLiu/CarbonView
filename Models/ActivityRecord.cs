@@ -104,15 +104,15 @@ namespace GreenITBlazor.Models
         }
 
         private double _oliverOil;
-        public double OliverOilEmission { get; private set; }
-        public double? OliverOilEmissionPc { get; set; }
-        public double OliverOil
+        public double OliveOilEmission { get; private set; }
+        public double? OliveOilEmissionPc { get; set; }
+        public double OliveOil
         {
             get { return _oliverOil; }
             set
             {
                 _oliverOil = value;
-                OliverOilEmission = _oliverOil * 6;
+                OliveOilEmission = _oliverOil * 6;
             }
         }
 

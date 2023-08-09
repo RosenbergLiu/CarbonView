@@ -20,6 +20,7 @@
             <RadzenColumn SizeMD="9">
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@billRecord.ElectricityUsage" Name="ElectricityUsage" Placeholder="0.0" ShowUpDown="false" />
                 <RadzenRequiredValidator Component="ElectricityUsage" Text="Electricity usage is required" />
+                <RadzenNumericRangeValidator Component="ElectricityUsage" Min="0" Text="Value must be positive or zero." Style="position: absolute"/>
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 1rem">
@@ -29,6 +30,7 @@
             <RadzenColumn SizeMD="9">
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@billRecord.GasUsage" Name="GasUsage" Placeholder="0.0" ShowUpDown="false" />
                 <RadzenRequiredValidator Component="GasUsage" Text="Gas usage is required" />
+                <RadzenNumericRangeValidator Component="GasUsage" Min="0" Text="Value must be positive or zero." />
             </RadzenColumn>
         </RadzenRow>
         <RadzenStack Orientation="Orientation.Horizontal" AlignItems="AlignItems.Center" JustifyContent="JustifyContent.End" Gap="0.5rem">

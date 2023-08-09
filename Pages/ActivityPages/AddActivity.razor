@@ -23,6 +23,7 @@
             </RadzenColumn>
             <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Beef" Name="Beef" ShowUpDown="false" />
+                <RadzenNumericRangeValidator Component="Beef" Min="0" Text="Value must be positive or zero." />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
@@ -31,6 +32,7 @@
             </RadzenColumn>
             <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Lamb" Name="Lamb" ShowUpDown="false" />
+                <RadzenNumericRangeValidator Component="Lamb" Min="0" Text="Value must be positive or zero." />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
@@ -39,6 +41,7 @@
             </RadzenColumn>
             <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Pork" Name="Pork" ShowUpDown="false" />
+                <RadzenNumericRangeValidator Component="Pork" Min="0" Text="Value must be positive or zero." />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
@@ -47,6 +50,7 @@
             </RadzenColumn>
             <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Poultry" Name="Poultry" ShowUpDown="false" />
+                <RadzenNumericRangeValidator Component="Poultry" Min="0" Text="Value must be positive or zero." />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
@@ -55,6 +59,7 @@
             </RadzenColumn>
             <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Coffee" Name="Coffee" ShowUpDown="false" />
+                <RadzenNumericRangeValidator Component="Coffee" Min="0" Text="Value must be positive or zero." />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
@@ -63,14 +68,16 @@
             </RadzenColumn>
             <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Milk" Name="Milk" ShowUpDown="false" />
+                <RadzenNumericRangeValidator Component="Milk" Min="0" Text="Value must be positive or zero." />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
             <RadzenColumn>
-                <RadzenLabel Text="Oliver Oil" Component="OliverOil" style="width: 100%" />
+                <RadzenLabel Text="Olive Oil" Component="OliveOil" style="width: 100%" />
             </RadzenColumn>
             <RadzenColumn>
-                <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.OliverOil" Name="OliverOil" ShowUpDown="false" />
+                <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.OliveOil" Name="OliveOil" ShowUpDown="false" />
+                <RadzenNumericRangeValidator Component="OliveOil" Min="0" Text="Value must be positive or zero." />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
@@ -79,6 +86,7 @@
             </RadzenColumn>
             <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Cheese" Name="Cheese" ShowUpDown="false" />
+                <RadzenNumericRangeValidator Component="Cheese" Min="0" Text="Value must be positive or zero." />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
@@ -87,6 +95,7 @@
             </RadzenColumn>
             <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Eggs" Name="Eggs" ShowUpDown="false" />
+                <RadzenNumericRangeValidator Component="Eggs" Min="0" Text="Value must be positive or zero." />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
@@ -95,6 +104,7 @@
             </RadzenColumn>
             <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Rice" Name="Rice" ShowUpDown="false" />
+                <RadzenNumericRangeValidator Component="Rice" Min="0" Text="Value must be positive or zero." />
             </RadzenColumn>
         </RadzenRow>
         <RadzenRow style="margin-bottom: 0.2rem">
@@ -103,6 +113,7 @@
             </RadzenColumn>
             <RadzenColumn>
                 <RadzenNumeric style="display: block; width: 100%" @bind-Value="@activityRecord.Chocolate" Name="Chocolate" ShowUpDown="false" />
+                <RadzenNumericRangeValidator Component="Chocolate" Min="0" Text="Value must be positive or zero." />
             </RadzenColumn>
         </RadzenRow>
 

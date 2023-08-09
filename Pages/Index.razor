@@ -1,7 +1,7 @@
 ﻿@page "/"
 
 <PageTitle>Compare</PageTitle>
-<RadzenText Text="Compare" TextStyle="TextStyle.H3" TagName="TagName.H1" Style="margin-bottom: 1rem"/>
+<RadzenText Text="Comparison" TextStyle="TextStyle.H3" TagName="TagName.H1" Style="margin-bottom: 1rem"/>
 <RadzenAlert Shade="Shade.Lighter" Variant="Variant.Flat" Size="AlertSize.Small" AlertStyle="AlertStyle.Danger" Title="@errorMessage" Visible="@errorVisible" AllowClose="false">
     <a style="text-decoration: underline;" @onclick="() => AlertClicked(pageUrl)">@alertLink</a>
     <p>Or use <RadzenIcon Icon="menu" /><span></span> button on the top right to navigate to @pageName</p>
