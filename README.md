@@ -16,7 +16,7 @@
 
 
 ==========Windows Store install (Minimum Windows Version: 10.0.17763.0)
-Waiting verification by Microsoft
+Go to url: https://www.microsoft.com/store/apps/9P5QXJB4Z7H9
 
 
 ==========Android manual install (Minimum Android Version: 5.0)
